@@ -39,6 +39,7 @@ require __DIR__ . '/auth.php';
 Route::get('/csrf-token', function () {
     return response()->json(['token' => csrf_token()]);
 })->name('csrf.token');
+
 Route::get('storage-link', function () {
     return Artisan::call('storage:link');
 });

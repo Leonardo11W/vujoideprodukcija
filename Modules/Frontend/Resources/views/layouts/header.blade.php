@@ -20,6 +20,8 @@
             }
         }
     }
+    $enableDarkMode = ($headerMenuSettingDecoded && isset($headerMenuSettingDecoded['enable_darknight_mode'])) ? $headerMenuSettingDecoded['enable_darknight_mode'] == 1 : true;
+    $enableLanguage = ($headerMenuSettingDecoded && isset($headerMenuSettingDecoded['enable_language'])) ? $headerMenuSettingDecoded['enable_language'] == 1 : true;
 @endphp
 
 @if ($isHeaderEnabled)
@@ -58,7 +60,7 @@
 
                             <!-- color mode -->
 
-                            @if ($headerMenuSettingDecoded['enable_darknight_mode'] == 1)
+                            @if ($enableDarkMode)
                                 <li class="nav-item theme-scheme-switch">
                                     <a href="javascript:void(0)" class="nav-link d-flex align-items-center change-mode">
                                         <span class="light-mode">
@@ -236,8 +238,7 @@
                                 @endif
 
                                 <!-- Theme Toggle - Always visible -->
-                                @if (isset($headerMenuSettingDecoded['enable_darknight_mode']) &&
-                                        $headerMenuSettingDecoded['enable_darknight_mode'] == 1)
+                                @if ($enableDarkMode)
                                     <li class="nav-item theme-scheme-switch">
                                         <a href="javascript:void(0)"
                                             class="nav-link d-flex align-items-center change-mode">
@@ -252,7 +253,7 @@
                                 @endif
 
                                 <!-- Language Translation - Always visible -->
-                                @if (isset($headerMenuSettingDecoded['enable_language']) && $headerMenuSettingDecoded['enable_language'] == 1)
+                                @if ($enableLanguage)
                                     <li class="nav-item dropdown dropdown-language-wrapper">
                                         <a class="gap-1 px-3 dropdown-toggle d-flex align-items-center"
                                             data-bs-toggle="dropdown" href="#" role="button"
@@ -266,13 +267,32 @@
                                             {{ strtoupper(App::getLocale()) }}
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-language mt-0">
-                                            @foreach (config('app.available_locales') as $locale => $title)
+                                            <a class="dropdown-item {{ app()->getLocale() === 'bs' ? 'text-primary fw-semibold' : '' }}"
+                                                href="{{ route('frontend.language.switch', 'bs') }}">
+                                                <span class="d-flex align-items-center gap-3">
+                                                    <img src="{{ asset('images/flags/bs.png') }}"
+                                                        alt="Bosanski (BS) flag"
+                                                        class="img-fluid mr-2 avatar-20"
+                                                        onerror="this.onerror=null; this.src='https://flagcdn.com/w320/ba.png';">
+                                                    <span>Bosanski (BS)</span>
+                                                    @if (app()->getLocale() === 'bs')
+                                                        <span class="active-icon">
+                                                            <i class="ph-fill ph-check-fat align-middle"></i>
+                                                        </span>
+                                                    @endif
+                                                </span>
+                                            </a>
+                                            @php
+                                                $availableLocales = array_filter(config('app.available_locales', []), fn($k) => $k !== 'bs', ARRAY_FILTER_USE_KEY);
+                                            @endphp
+                                            @foreach ($availableLocales as $locale => $title)
                                                 <a class="dropdown-item {{ app()->getLocale() === $locale ? 'text-primary fw-semibold' : '' }}"
                                                     href="{{ route('frontend.language.switch', $locale) }}">
                                                     <span class="d-flex align-items-center gap-3">
                                                         <img src="{{ asset('images/flags/' . $locale . '.png') }}"
                                                             alt="{{ $title }} flag"
-                                                            class="img-fluid mr-2 avatar-20">
+                                                            class="img-fluid mr-2 avatar-20"
+                                                            onerror="this.onerror=null; this.src='https://flagcdn.com/w320/ba.png';">
                                                         <span>{{ $title }}</span>
                                                         @if (app()->getLocale() === $locale)
                                                             <span class="active-icon">
