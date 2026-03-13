@@ -41,6 +41,8 @@ git push -u origin main
 
 **Ploi:** Connect repository `https://github.com/Leonardo11W/vujoideprodukcija` and set branch to `main`.
 
+**Napomena:** Repo je optimiziran za push (bez .map, blog slika, dummy-images). Za demo sadržaj postavi `IS_DUMMY_DATA=true` u .env – slike se mogu dodati ručno u `public/blog/`, `public/dummy-images/` ako treba.
+
 ## 4. First-time setup (SSH)
 
 ```bash
