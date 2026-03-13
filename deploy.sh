@@ -6,6 +6,9 @@ set -e
 
 echo "=== Frezka Deploy ==="
 
+# Clear bootstrap cache (fixes BreezeServiceProvider error when Breeze is require-dev)
+rm -f bootstrap/cache/packages.php bootstrap/cache/services.php
+
 # Composer
 composer install --no-dev --optimize-autoloader --no-interaction
 
