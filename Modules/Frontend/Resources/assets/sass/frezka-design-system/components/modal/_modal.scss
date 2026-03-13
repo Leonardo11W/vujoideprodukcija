@@ -1,0 +1,74 @@
+// package active modal 
+.package-activated-modal {
+
+  .actived-modal-body {
+
+    .actived-modal-img {
+      margin-bottom: 3.75rem;
+    }
+
+    .active-title {
+      font-size: 1.5rem;
+    }
+
+    .active-modal-content {
+      margin-bottom: 2.5rem;
+    }
+
+  }
+}
+
+// rating modal
+.rating-modal {
+  .modal-body {
+    padding: 3.75rem 3.125rem;
+
+    .bg-gray-800 {
+      &.form-control {
+        padding: 1rem 1.25rem;
+        border-radius: var(--bs-border-radius-lg);
+        border-color: transparent;
+      }
+    }
+  }
+}
+
+// coupon modal
+.coupon-modal {
+  .modal-body {
+    .coupon-inner-content {
+      max-height: 36rem;
+    }
+  }
+}
+
+// wallet balance
+.pop-up-box {
+  max-width: 550px;
+
+  .modal-body {
+
+    .amt-btn {
+      background-color: var(--bs-purple);
+      padding: 0.8rem 1.375rem;
+      color: var(--bs-heading-color);
+
+      &:hover {
+        background-color: var(--bs-primary);
+        color: var(--bs-white);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .rating-modal {
+    .modal-body {
+      padding: 3rem 2rem;
+    }
+
+    .btn {
+      padding: .5rem 1.5rem;
+    }
+  }
+}

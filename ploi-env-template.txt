@@ -1,0 +1,29 @@
+# Copy this to Ploi > Site > Environment (or .env on server)
+# Replace placeholders: DB_*, APP_KEY, MAIL_*
+
+APP_NAME=Frezka
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://vujoideprodukcija.vujo.software
+MIX_ASSET_URL=https://vujoideprodukcija.vujo.software
+APP_KEY=
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=frezka_prod
+DB_USERNAME=REPLACE_WITH_PLOI_DB_USER
+DB_PASSWORD=REPLACE_WITH_PLOI_DB_PASSWORD
+
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+QUEUE_CONNECTION=sync
+
+MAIL_MAILER=smtp
+MAIL_HOST=REPLACE_WITH_SMTP_HOST
+MAIL_PORT=587
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=noreply@vujo.software
+MAIL_FROM_NAME="${APP_NAME}"

@@ -1,0 +1,104 @@
+.appointments-steps-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem 0;
+
+    .appointments-step {
+        .appointments-step-inner {
+            color: inherit;
+        }
+
+        .step-counter {
+            height: 1.75rem;  
+            width: 1.75rem;
+            line-height: 1.75rem;
+            flex-shrink: 0;
+            text-align: center;
+            font-size: .875rem;
+            font-weight: 500;
+            background-color: var(--bs-gray-900);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 50%;
+        }
+
+        .step-text {
+            font-weight: 500;
+        }
+    }
+
+    .appointments-steps-item {
+        position: relative;
+        padding-right: 2.375rem;
+        margin-right: 2.375rem;
+
+        &::after {
+            content: "\e13a";
+            font-family: "Phosphor";
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            letter-spacing: 0;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: -.5rem;
+        }
+
+        &:last-child {
+            padding-right: 0;
+            margin-right: 0;
+
+            &::after {
+                display: none;
+            }
+        }
+
+        &.complete {
+            .appointments-step {
+                .step-counter {
+                    background-color: var(--bs-success);
+                    color: var(--bs-white);
+                }
+
+                .step-text {
+                    color: var(--bs-heading-color);
+                }
+            }
+        }
+
+        &.active {
+            .appointments-step {
+                .step-counter {
+                    background-color: var(--bs-primary);
+                    color: var(--bs-white);
+                }
+
+                .step-text {
+                    color: var(--bs-primary);
+                }
+            }
+        }
+    }
+    
+}
+
+@include media-breakpoint-down(md) {
+    .appointments-steps-list {
+        .appointments-steps-item {
+            .seprator {
+                display: none;
+            }
+        }
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .appointments-steps-list {
+        flex-direction: column;
+    }
+}

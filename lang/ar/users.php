@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'title' => 'المستخدمين',
+    'account_crdential' => 'تم إرسال بيانات الاعتماد إلى المستخدم.',
+    'user_created' => 'تم إنشاء المستخدم بنجاح.',
+    'lbl_old_password' => 'كلمة المرور القديمة',
+    'lbl_new_password' => 'كلمة المرور الجديدة',
+    'lbl_confirm_password' => 'تأكيد كلمة المرور',
+    'address_store' => 'تم تخزين عنوان المستخدم',
+    'user_not_found' => 'المستخدم غير موجود',
+    'address_list' => 'قائمة عناوين المستخدم',
+    'address_not_found' => 'لم يتم العثور على العنوان',
+    'address_deleted' => 'تم حذف العنوان',
+    'address_updated' => 'تم تحديث العنوان',
+    'old_password' => 'أدخل كلمة المرور القديمة',
+    'new_password' => 'أدخل كلمة المرور الجديدة',
+    'confirm_password' => 'تأكيد كلمة المرور الجديدة',
+    'old_password_required' => 'كلمة المرور القديمة هي حقل مطلوب',
+    'new_password_required' => 'كلمة المرور الجديدة هي حقل مطلوب',
+    'confirm_password_required' => 'تأكيد كلمة المرور هي حقل مطلوب',
+    'password_min_length' => 'كلمة المرور يجب أن تكون على الأقل 8 أحرف',
+    'password_max_length' => 'كلمة المرور يجب أن تكون على الأكثر 12 أحرف',
+    'passwords_must_match' => 'كلمات المرور يجب أن تتطابق',
+    'change_password' => 'تغيير كلمة المرور',
+    'new_password_mismatch' => 'كلمة المرور الجديدة لا يمكن أن تكون نفس كلمة المرور القديمة.',
+];

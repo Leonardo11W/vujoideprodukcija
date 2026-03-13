@@ -1,0 +1,13 @@
+.profile-package-card {
+    margin-bottom: 3.125rem;
+}
+@include media-breakpoint-down(lg) {
+  .profile-package-card {
+      margin-bottom: 1.5rem;
+  }
+}
+@include media-breakpoint-down(md) {
+  .profile-package-card {
+      margin-bottom: 1rem;
+  }
+}

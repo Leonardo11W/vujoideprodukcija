@@ -1,0 +1,1 @@
+<h1>RemovePoint Section</h1>

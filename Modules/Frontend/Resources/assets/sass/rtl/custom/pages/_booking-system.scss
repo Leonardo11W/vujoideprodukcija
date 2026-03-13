@@ -1,0 +1,9 @@
+// uick booking
+.book-appointment-content {
+  .dropdown-toggle {
+    &::after {
+      right: auto;
+      left: 1rem;
+    }
+  }
+}

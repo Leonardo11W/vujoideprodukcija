@@ -1,0 +1,59 @@
+.export-card {
+  padding: 1.5rem;
+  background: rgba(var(--bs-purple-rgb),.5);
+  border-radius: var(--bs-border-radius);
+  border: var(--bs-border-width) solid transparent;
+  position: relative;
+  overflow: hidden;
+  transition: all .3s ease-in-out;
+
+
+  &:hover {
+    border-color: var(--bs-primary);
+    transform: scale(1.1);
+
+    .export-info {
+
+      .title-export {
+        color: var(--bs-primary);
+      }
+    }
+  }
+
+  .export-image {
+    overflow: hidden;
+    
+    img {
+      border-radius: 100%;
+      vertical-align: inherit;
+      object-fit: cover;
+      object-position: top;
+      border: 4px solid var(--bs-gray-900);
+      transition: all .3s ease-in-out;
+    }
+  }
+
+  .export-info {
+    text-align: center;
+
+    .title-export {
+      color: var(--bs-heading-color);
+    }
+  }
+}
+
+.export-button {
+  padding-top: 3.125rem;
+}
+
+@include media-breakpoint-down(md) {
+  .export-button {
+    padding-top: 1.875rem;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .export-card {
+    .export-image {}
+  }
+}

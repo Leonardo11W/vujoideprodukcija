@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'title' => 'Benutzer',
+    'account_crdential' => 'Zugangsdaten wurden an den Benutzer gesendet.',
+    'user_created' => 'Benutzer erfolgreich erstellt.',
+    'lbl_old_password' => 'Altes Passwort',
+    'lbl_new_password' => 'Neues Passwort',
+    'lbl_confirm_password' => 'Passwort bestätigen',
+    'address_store' => 'Benutzeradresse wurde gespeichert',
+    'user_not_found' => 'Benutzer nicht gefunden',
+    'address_list' => 'Liste der Benutzeradressen',
+    'address_not_found' => 'Adresse nicht gefunden',
+    'address_deleted' => 'Adresse gelöscht',
+    'address_updated' => 'Adresse aktualisiert',
+    'old_password' => 'Geben Sie Ihr altes Passwort ein',
+    'new_password' => 'Geben Sie Ihr neues Passwort ein',
+    'confirm_password' => 'Bestätigen Sie Ihr neues Passwort',
+    'old_password_required' => 'Das alte Passwort ist ein Pflichtfeld',
+    'new_password_required' => 'Das neue Passwort ist ein Pflichtfeld',
+    'confirm_password_required' => 'Die Bestätigung des Passworts ist ein Pflichtfeld',
+    'password_min_length' => 'Das Passwort muss mindestens 8 Zeichen lang sein',
+    'password_max_length' => 'Das Passwort muss höchstens 12 Zeichen lang sein',
+    'passwords_must_match' => 'Die Passwörter müssen übereinstimmen',
+    'change_password' => 'Passwort ändern',
+    'new_password_mismatch' => 'Das neue Passwort kann nicht das gleiche wie das alte Passwort sein.',
+];

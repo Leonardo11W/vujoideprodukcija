@@ -1,0 +1,11 @@
+.blog-card {
+  &.blod-single-card {
+    .blog-pagination {
+      .blog-pagination-btn {
+        &.blog-pagination-right {
+            direction: ltr;
+        }
+      }
+    }
+  }
+}

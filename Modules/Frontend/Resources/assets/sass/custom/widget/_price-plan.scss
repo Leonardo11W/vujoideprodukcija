@@ -1,0 +1,116 @@
+.package-card {
+    padding: 2rem;
+}
+.radient-card {
+    padding: 1.5rem;
+    width: 80%;
+    margin: 0 auto 6.938rem;
+    position: relative;
+    z-index: 1;
+    &::before {
+        content: "";
+        position: absolute;
+        top: auto;
+        left: 1.25rem;
+        right: -1.25rem;
+        bottom: -1.375rem;
+        background-color: var(--bs-gray-900);
+        width: 92%;
+        height: 100%;
+        border-radius: 1.5rem;
+        z-index: -1;
+        opacity: 0.7;
+        border-radius: 0.5rem;
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        top: auto;
+        left: 2.25rem;
+        right: -2.25rem;
+        bottom: -2.375rem;
+        background-color: var(--bs-gray-900);
+        width: 87%;
+        height: 100%;
+        border-radius: 1.5rem;
+        z-index: -1;
+        opacity: 0.5;
+        border-radius: 0.5rem;
+    }
+}
+
+
+.pricing-card {
+    background: var(--bs-gray-800);
+    padding: 1.875rem;
+    position: relative;
+
+    .package-discount {
+        position: absolute;
+        top: 0;
+        left: auto;
+        right: 0;
+        border-radius: 0 var(--bs-border-radius) 0 var(--bs-border-radius);
+    }
+
+    .package-badge {
+        background: var(--bs-purple);
+        color: var(--bs-body-text);
+        border-radius: var(--bs-border-radius);
+        border: 1px solid var(--bs-border-color);
+    }
+
+    .package-wrap{
+        margin-bottom: 1.25rem;
+    }    
+
+    .buy-btn{
+        margin: 2.188rem 0;
+    }
+
+    .package-included-title {
+        margin-bottom: 0.75rem;
+    }
+
+    .package-included-list {
+        padding: 0;
+        margin: 0;
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            margin-bottom: 0.5rem;
+
+            .package-qty {
+                color: var(--bs-heading-color);
+                margin-left: 0.625rem;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .package-card {
+        padding: 1rem;
+    }
+    .pricing-card {
+        .buy-btn {
+            margin: 1rem 0;
+        }
+    }
+    .radient-card {
+        width: 100%;
+        margin: 0 auto 3.938rem;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .pricing-card {
+        padding: 1rem;
+    }
+}

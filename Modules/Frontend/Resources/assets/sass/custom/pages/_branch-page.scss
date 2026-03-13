@@ -1,0 +1,96 @@
+.branch-details-box {
+    background-color: var(--bs-gray-800);
+
+    .branch-meta {
+        top: 1rem;
+        left: 2rem;
+    }
+
+    .branch-details-img {
+        aspect-ratio: .5/.275;
+    }
+    .branch-details-content {
+        padding: 1.25rem;
+    }
+
+}
+.branch-tab-content {
+    .nav-item {
+        .nav-link {
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            background-color: var(--bs-purple);
+            color: var(--bs-body-color);
+            &.active, &:hover {
+                background-color: var(--bs-primary);
+                color: var(--bs-white);
+            }
+            
+        }
+    }
+}
+.branch-serivce-card {
+    background-color: var(--bs-gray-800);
+    padding: 1rem;
+    border-radius: var(--bs-border-radius);
+    .branch-service-img{
+        height: 4rem;
+        line-height: 4rem;
+        min-width: 4rem;
+        width: 4rem;
+        object-fit: cover;
+    }
+}
+.branch-review-card {
+    background-color: var(--bs-gray-800);
+    padding: 1.25rem;
+    border-radius: var(--bs-border-radius);
+    margin-bottom: 1.25rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+    
+    .branch-review-img {
+        height: 3.625rem;
+        line-height: 3.625rem;
+        min-width: 3.625rem;
+        width: 3.625rem;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+}
+.branch-staff-card {
+    background-color: var(--bs-gray-800);
+    padding: 1.5rem 1.25rem;
+    border-radius: var(--bs-border-radius);
+    .branch-staff-img {
+        border-radius: 50%;
+        height: 4.375rem;
+        line-height:4.375rem;
+        min-width:4.375rem;
+        width:4.375rem;
+        object-fit: cover;
+        margin-bottom: 1.125rem;
+    }
+    .staff-info {
+        margin-bottom: .875rem;
+    }
+}
+.branchgallery-slider {
+    .slick-item {
+        padding: 0 var(--spacing);
+    }
+    .branch-gallery-img {
+        aspect-ratio: 1/.4;
+    }
+}
+@include media-breakpoint-down(md) {
+    .branch-tab-content {
+        .nav-item {
+            .nav-link {
+                padding: 0.75rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,55 @@
+header {
+  .dropdown-user-wrapper {
+   
+    .dropdown-user-menu {
+      i {
+        &.ph.ph-caret-right {
+          &::before {
+            content: "\e138";
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@include media-breakpoint-down(xl) {
+  header {
+    .navbar {
+      .horizontal-nav {
+        &.mobile-offcanvas {
+          left: auto;
+          right: 0;
+          transform: translateX(100%);
+        }
+    
+      }
+     
+    }
+
+  }
+
+
+  .iq-navbar {
+    .navbar-collapse {
+      &:not(.offcanvas-collapse) {
+        left: auto;
+        right: 0;
+
+      }
+    }
+
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  header {
+    .navbar {
+      .horizontal-nav {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+}

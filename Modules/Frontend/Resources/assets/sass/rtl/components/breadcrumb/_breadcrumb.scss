@@ -1,0 +1,16 @@
+.breadcrumb-section {
+    .breadcrumb {
+        .breadcrumb-item {
+            &+.breadcrumb-item {
+                padding-left: 0;
+                padding-right: .875rem;
+    
+                &::before {
+                    float: right;
+                    padding-right: 0;
+                    padding-left: .875rem;
+                }
+            }
+        }
+    }
+}

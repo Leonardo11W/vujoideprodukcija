@@ -1,0 +1,212 @@
+.decorator-font {
+  font-family: 'Kalam', cursive;
+}
+
+.heading-color {
+  color: var(--bs-heading-color);
+}
+
+.object-cover {
+  object-fit: cover;
+}
+
+.container-fluid {
+  padding: 0 6.25em;
+}
+
+.bg-gray-900 {
+  background-color: var(--bs-gray-900);
+}
+.bg-gray-800 {
+  background-color: var(--bs-gray-800);
+}
+.bg-gray-700 {
+  background-color: var(--bs-gray-700);
+}
+.bg-gray-600 {
+  background-color: var(--bs-gray-600);
+}
+
+.bg-orange-subtle {
+  background-color: var(--bs-orange-bg-subtle);
+}
+
+.icon-color {
+  color: var(--bs-gray-600);
+}
+
+// section spacing
+.section-spacing {
+  padding: 7.5rem 0;
+}
+
+.section-spacing-top {
+  padding: 7.5rem 0 0;
+}
+
+.section-spacing-bottom {
+  padding: 0 0 7.5rem;
+}
+
+.section-spacing-inner-pages {
+  padding: 5rem 0 7.5rem;
+}
+
+// font size
+.font-size-6 {
+  font-size: 0.375rem;
+}
+
+.font-size-10 {
+  font-size: 0.625rem;
+}
+
+.font-size-12 {
+  font-size: 0.75rem;
+}
+
+.font-size-14 {
+  font-size: 0.875rem;
+}
+
+.font-size-16 {
+  font-size: 1rem;
+}
+
+.font-size-18 {
+  font-size: 1.125rem;
+}
+
+.font-size-20 {
+  font-size: 1.25rem;
+}
+
+.font-size-21-3 {
+  font-size: 1.3313rem;
+}
+
+// line count
+.line-count-1 {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-count-2 {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-count-3 {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.line-count-4 {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.line-count-5 {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+}
+
+// letter spacing
+.letter-spacing-1 {
+  letter-spacing: 0.0625rem;
+}
+
+.letter-spacing-2 {
+  letter-spacing: 0.125rem;
+}
+
+.letter-spacing-2-percent {
+  letter-spacing: 0.02rem;
+}
+
+// overflow scroll
+.overflow-x-scroll {
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  overflow-x: auto !important;
+  overflow-y: hidden;
+}
+
+.overflow-y-scroll {
+  flex-wrap: nowrap;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+}
+
+@media (max-width: 1600px) {
+  .container-fluid {
+    padding: 0 3.5rem;
+  }
+}
+
+@media (max-width: 1400px) {
+  .container-fluid {
+    padding: 0 2rem;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .container-fluid {
+    padding: 0 1.5rem;
+  }
+
+  .sticky {
+    position: static;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .container-fluid {
+    padding: 0 1rem;
+  }
+
+  .section-spacing {
+    padding: 3.125rem 0;
+  }
+
+  .section-spacing-top {
+    padding: 3.125rem 0 0;
+  }
+
+  .section-spacing-bottom {
+    padding: 0 0 3.125rem;
+  }
+
+  .section-spacing-inner-pages {
+    padding: 3.125rem 0 3.125rem;
+  }
+}

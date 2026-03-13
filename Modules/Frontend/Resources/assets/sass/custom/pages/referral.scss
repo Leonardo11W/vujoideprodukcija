@@ -1,0 +1,96 @@
+.how-it-works-section {
+  .how-it-work-container {
+    gap: 1.875rem;
+
+    .how-its-card-box {
+      padding: 1.25rem 1.5rem;
+      gap: 1.25rem;
+
+      .icon-box {
+        padding: 0.875rem;
+        border: 1px solid var(--bs-gray-700);
+        background-color: var(--bs-gray-900);
+
+        i {
+          font-size: 1.625rem;
+        }
+      }
+    }
+  }
+}
+
+.referral-section {
+  .referral-box {
+    background-color: var(--bs-purple);
+    padding: 1.875rem;
+
+    .referral-code-box {
+      display: flex;
+      align-items: center;
+      padding-top: 3.75rem;
+
+      .code-box {
+        border: 1px solid var(--bs-gray-300);
+        max-width: 566px;
+        width: 100%;
+        padding: 0.75rem 0.75rem 0.75rem 1.375rem;
+        z-index: 1;
+
+        .code-text {
+          font-weight: 500;
+          color: var(--bs-heading-color);
+        }
+      }
+    }
+
+    .referral-bg-img {
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 0;
+    }
+  }
+}
+
+.loyalty-section {
+  .loyalty-box {
+    padding: 1.25rem 1.875rem;
+  }
+
+  .loyalty-points-popup {
+    .loyalty-steps-box {
+      li:not(:last-child) {
+        gap: 1.25rem;
+        margin-bottom: 1.25rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid var(--bs-gray-400);
+      }
+
+      .step-number {
+        width: 2.813rem;
+        height: 2.813rem;
+        border: 1px solid var(--bs-gray-400);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .referral-section {
+    .referral-box {
+      padding: 1rem;
+
+      .referral-bg-img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .referral-code-box {
+      .code-box {
+        padding: .75rem;
+      }
+    }
+  }
+}

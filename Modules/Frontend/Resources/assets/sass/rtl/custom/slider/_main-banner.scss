@@ -1,0 +1,49 @@
+// RTL support for main banner slider
+[dir="rtl"] {
+    .banner-section-wrapper {
+        .main-banner {
+            .slick-banner {
+                .slick-arrow {
+                    &.slick-prev {
+                        right: auto;
+                        left: 1rem;
+                    }
+
+                    &.slick-next {
+                        left: auto;
+                        right: 1rem;
+                    }
+                }
+            }
+        }
+
+        .banner-content {
+            .banner-content-search-box {
+                .d-flex {
+                    direction: rtl;
+                }
+            }
+        }
+    }
+}
+
+// Additional RTL fixes for Arabic language
+html[lang="ar"] {
+    .banner-section-wrapper {
+        .main-banner {
+            .slick-banner {
+                .slick-arrow {
+                    &.slick-prev {
+                        right: auto;
+                        left: 1rem;
+                    }
+
+                    &.slick-next {
+                        left: auto;
+                        right: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,69 @@
+footer {
+    background-color: #050505;
+    .footer-box{
+        padding: 3.75rem 0;
+            
+        .navbar-brand {
+            .logo-normal{
+                img{
+                    height: 2.5rem;
+                    min-width: 9.688rem;
+                }
+            }
+        }
+    
+        .platform-btn {
+            a{
+                background-color: #1B1B1B;
+                height: 2.813rem;
+                line-height: 2.5rem;
+                border-radius: var(--bs-border-radius-pill);
+            }
+        }
+    
+        .footer-menu{
+            li{
+                font-size: .875rem;
+                margin-bottom: 0.938rem;
+    
+                a{
+                    color: var(--bs-body-color);
+                    transition: all .3s ease;
+                }
+    
+                i {
+                    font-size: 1.125rem;
+                }
+    
+                &:last-child{
+                    margin-bottom: 0;
+                }
+    
+                &:hover{
+                    a{
+                        color: var(--bs-white);
+                    }
+                }
+    
+                .social-link{
+                    color: var(--bs-heading-color);
+                }
+            }
+        }
+    
+    }
+
+    .footer-bottom {
+        padding: 0.813rem 1rem;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+    }
+}
+
+@include media-breakpoint-down(md) {
+    footer {
+        .footer-box{
+            padding: 2rem 0;
+        }
+    }
+}

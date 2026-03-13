@@ -1,0 +1,24 @@
+.address-card {
+  padding: 1.875rem;
+  margin-bottom: 1rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .address-details {
+    gap: 1.25rem;
+
+    @media(max-width:768px) {
+      gap: 0.5rem;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .address-card {
+    .address-details {
+      gap: 0.5rem;
+    }
+  }
+}

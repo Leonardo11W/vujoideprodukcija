@@ -1,0 +1,10 @@
+.accordion-button{
+    &::after{
+        margin-right: auto;
+        margin-left: 0;
+    }
+}
+
+.faq-wrapper {
+    margin-bottom: 3.125rem;
+}

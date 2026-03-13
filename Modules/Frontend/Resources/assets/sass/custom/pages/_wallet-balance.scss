@@ -1,0 +1,38 @@
+.balance-section {
+  background-color: var(--bs-purple);
+  padding: 1.563rem 1.875rem;
+  margin-bottom: 3.125rem;
+}
+
+
+// bank list
+.bank-list-card {
+  background-color: var(--bs-gray-800);
+  border-radius: var(--bs-border-radius);
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.875rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .balance-section {
+    margin-bottom: 1.5rem;
+  }
+
+}
+
+@include media-breakpoint-down(md) {
+  .balance-section {
+    margin-bottom: 1rem;
+  }
+
+
+  // bank list
+  .bank-list-card {
+    margin-bottom: 1rem;
+
+  }
+}

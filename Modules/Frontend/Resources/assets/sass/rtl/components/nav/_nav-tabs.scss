@@ -1,0 +1,25 @@
+.nav {
+    padding-right: 0;
+}
+
+.left,
+.right {
+    transform: scaleX(-1);
+}
+
+.appointments-steps-list {
+    padding-right: 0;
+
+    .appointments-steps-item {
+        padding-right: 0;
+        margin-right: 0;
+        padding-left: 2.375rem;
+        margin-left: 2.375rem;
+
+        &::after {
+            right: auto;
+            left: -.5rem;
+            transform: translateY(-50%) scale(-1);
+        }
+    }
+} 

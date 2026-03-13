@@ -1,0 +1,27 @@
+<?php
+
+return [
+   'title'=>'Usuarios',
+   'account_crdential'=>'Credenciales de cuenta enviadas al usuario.',
+   'user_created'=>'Usuario creado con éxito.',
+   'lbl_old_password'=>'Contraseña anterior',
+   'lbl_new_password'=>'Nueva contraseña',
+   'lbl_confirm_password'=>'confirmar Contraseña',
+   'address_store'=>'La dirección de usuario se ha almacenado',
+   'user_not_found'=>'Usuario no encontrado',
+   'address_list'=>'Lista de direcciones de usuario',
+   'address_not_found'=>'Dirección no encontrada',
+   'address_deleted'=>'Dirección eliminada',
+   'address_updated'=>'Dirección actualizada',
+   'old_password' => 'Ingrese su antigua contraseña',
+   'new_password' => 'Ingrese su nueva contraseña',
+   'confirm_password' => 'Confirme su nueva contraseña',
+   'old_password_required' => 'La contraseña anterior es un campo requerido',
+   'new_password_required' => 'La contraseña nueva es un campo requerido',
+   'confirm_password_required' => 'La confirmación de la contraseña es un campo requerido',
+   'password_min_length' => 'La contraseña debe tener al menos 8 caracteres',
+   'password_max_length' => 'La contraseña debe tener como máximo 12 caracteres',
+   'passwords_must_match' => 'Las contraseñas deben coincidir',
+   'change_password' => 'Cambiar contraseña',
+   'new_password_mismatch' => 'La nueva contraseña no puede ser la misma que la contraseña anterior.',
+];

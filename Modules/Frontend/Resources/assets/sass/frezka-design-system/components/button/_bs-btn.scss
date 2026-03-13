@@ -1,0 +1,55 @@
+.btn {
+    &.btn-link {
+        padding: 0;
+        font-weight: 600;
+        border-bottom: 1px solid;
+        border-radius: 0;
+        &:hover {
+            border-bottom: 1px solid;
+        }
+    }
+}
+
+// modal close btn
+.btn-close {
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+
+// quantity
+.iq-qty-btn{
+    padding: .5rem 1rem;
+    background-color: var(--bs-gray-900);
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    .btn{ 
+        &:focus{
+            box-shadow: unset;
+        }
+    }
+    .input-display{
+        width: 2.5rem;
+        color: var(--bs-heading-color);
+        cursor: text;
+
+    }
+}
+.availability-stock-box {
+    .availability-stock-qty {
+        border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+        margin-bottom: 1.25rem;
+        padding-bottom: 1.5rem;
+        
+        &:last-child {
+            border: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+    }
+}
+.btn-close {
+    &:focus {
+        box-shadow: none;
+    }
+}

@@ -1,0 +1,62 @@
+.myorder-box {
+  gap: 3.75rem;
+
+  .order-card-container {
+    .order-card {
+      background-color: var(--bs-gray-800);
+      padding: 1.875rem;
+      gap: 1.875rem;
+      margin-bottom: 1.875rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .order-card-img {
+        img {
+          width: 5rem;
+          height: 5rem;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .order-history-container {
+      background-color: var(--bs-gray-800);
+      padding: 1.875rem;
+      gap: 1.875rem;
+
+      .order-list-items {
+        gap: 1.875rem;
+      }
+
+      .rating-div {
+        gap: 1.875rem;
+        margin-top: 1.875rem;
+        padding-top: 1.875rem;
+      }
+    }
+  }
+}
+#orders-table {
+  tbody {
+    tr {
+      td {
+        padding: 0;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .myorder-box {
+    gap: 1.875rem;
+
+    .order-card-container {
+      .order-card {
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}

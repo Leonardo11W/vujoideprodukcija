@@ -1,0 +1,99 @@
+.select2-container {
+  .select2-selection--single {
+    height: 2.7em;
+    padding: .4375em 1em .5em 1em;
+    font-family: $input-font-family;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: 0;
+    background: var(--bs-gray-800);
+    color: var(--bs-body-color);
+
+    .select2-selection__rendered {
+      padding-left: 0;
+      color: $input-color;
+    }
+  }
+
+  &.select2-container--default {
+    .select2-selection--single {
+      background-color: var(--bs-gray-800);
+      border-color: var(--bs-gray-800);
+      border-radius: var(--bs-border-radius);
+      color: var(--bs-body-color);
+      height: 2.7em;
+      padding: .4375em 1.8em .5em;
+
+      .select2-selection__arrow {
+        top: 50%;
+        right: 17px;
+        transform: translateY(-50%);
+
+        b {
+          border-color: $input-color transparent transparent transparent;
+        }
+      }
+
+      .select2-selection__rendered {
+        padding-left: 0;
+        color: $input-color;
+      }
+    }
+
+    .select2-results__option--highlighted {
+      &.select2-results__option--selectable {
+        background-color: var(--bs-primary);
+      }
+    }
+
+    .select2-results__option--selected {
+      background: var(--bs-gray-900);
+    }
+  }
+
+  &.select2-container--open {
+    .select2-selection--single {
+      border-color: var(--bs-primary);
+    }
+
+    .select2-selection__rendered {
+      color: $input-focus-color;
+    }
+
+    .select2-selection--single {
+      .select2-selection__arrow {
+        b {
+          border-color: transparent transparent $input-focus-color transparent;
+        }
+      }
+    }
+  }
+
+  .select2-dropdown {
+    border-color: var(--bs-primary);
+    background: var(--bs-gray-800);
+    color: var(--bs-body-color);
+    border-radius: var(--bs-border-radius);
+  }
+
+  .select2-search--dropdown {
+    padding: 0.5rem $input-padding-x;
+
+    .select2-search__field {
+      border-color: $input-border-color;
+    }
+  }
+
+  .select2-results__option {
+    padding: 0.5rem 1rem;
+  }
+}
+.select2 {
+  &.select2-container--default {
+    .select2-selection--single {
+      .select2-selection__clear {
+        color: var(--bs-primary);
+      }
+    }
+  }
+
+}

@@ -1,0 +1,44 @@
+.whychoose-section-spacing {
+  padding-top: 5rem;
+}
+
+.why-choose-section-wrapper {
+  .choose-us-card {
+    position: relative;
+    overflow: hidden;
+
+    .title-text {
+      position: absolute;
+      font-size: .875rem;
+      color: var(--bs-white);
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      background: rgba(var(--bs-black-rgb), 0.7);
+      padding: .25rem;
+    }
+
+    .choose-img {
+      aspect-ratio: 1.5/1;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .why-choose-us-img {
+    aspect-ratio: 2/1.08;
+  }
+}
+
+
+@include media-breakpoint-down(lg) {
+  .whychoose-section-spacing {
+    padding-top: 2.5rem;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .whychoose-section-spacing {
+    padding-top: 1.5rem;
+  }
+}

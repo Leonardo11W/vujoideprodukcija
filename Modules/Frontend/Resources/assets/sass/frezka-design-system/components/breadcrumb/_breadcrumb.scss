@@ -1,0 +1,55 @@
+.breadcrumb-section {
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 1rem;
+  background-color: var(--bs-gray-800);
+
+  .pink-gradient {
+    position: absolute;
+    top: 0;
+    left: -100px;
+  }
+
+  .blue-gradient {
+    position: absolute;
+    right: -100px;
+    top: 50%;
+  }
+
+  .breadcrumb {
+    position: relative;
+    z-index: 1;
+    .breadcrumb-item {
+      color: var(--bs-heading-color);
+
+      a {
+        color: inherit;
+      }
+
+      &.active {
+        color: var(--bs-primary);
+      }
+
+      &+.breadcrumb-item {
+        padding-left: .875rem;
+
+        &::before {
+          content: "\eae0";
+          padding-right: .875rem;
+          font-family: "Phosphor";
+          speak: never;
+          font-style: normal;
+          font-weight: normal;
+          font-variant: normal;
+          text-transform: none;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .breadcrumb-section {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,15 @@
+.offcanvas {
+
+    &.offcanvas-width {
+        width: 60%;
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .offcanvas {
+
+    &.offcanvas-width {
+        width: 80%;
+    }
+}
+}

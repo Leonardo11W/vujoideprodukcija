@@ -1,0 +1,84 @@
+.payment-section {
+  
+  .selected-package-card,
+  .payments-container,
+  .payment-methods,
+  .payment-summary {
+    @include card-style;
+  }
+
+  .selected-package-card {
+    padding: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .payments-container {
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .payment-method-items{
+    margin-bottom: 1.5rem;
+  }
+
+  .payment-methods {
+    padding: 1rem 1.25rem;
+
+    .payment-method-items {
+      margin-bottom: 1.5rem;
+      padding: 0;
+    }
+  }
+
+  .payment-summary {
+    padding: 1.25rem;
+
+    .price-items {
+      margin-bottom: 0.375rem;
+    }
+
+    .total-value {
+      font-size: 1.25rem;
+    }
+  }
+
+  .coupon-wrap {
+    margin-bottom: 2.5rem;
+
+    .coupon-input-group{
+
+        .coupon-input{
+            background-color: var(--bs-gray-800);
+             border: unset;
+        }
+        
+        .coupon-icon{
+            background-color: var(--bs-gray-800);
+            border: unset;
+            cursor: auto;
+        }
+
+    }
+  }
+
+  .line-divider {
+    height: 2px;
+    background-color: var(--bs-border-color);
+    margin: 1.25rem 0;
+  }
+}
+
+
+.taxDetails {
+  i {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    transform: rotate(0deg);
+  }
+
+  &[aria-expanded="false"] {
+    i {
+      transform: rotate(180deg);
+    }
+  }
+}

@@ -1,0 +1,42 @@
+.accordion {
+    .accordion-item {
+       background-color: var(--bs-gray-800);
+       margin-bottom: 1.875rem;
+       border: none;
+       border-radius: var(--bs-border-radius);
+       .accordion-button {
+        background-color: var(--bs-gray-800);
+        color: var(--bs-heading-color);
+        font-weight: 500;
+        font-size: 1.313rem; 
+        padding: 1.875rem;   
+        box-shadow: none;
+        gap: 1rem;    
+       }
+       .accordion-body {
+        padding: 0 1.875rem 1.875rem;
+       }
+       &:last-child {
+        margin-bottom: 0;
+       }
+    }
+}
+
+.faq-wrapper {
+    margin-bottom: 3.125rem;
+}
+
+@include media-breakpoint-down(sm) {
+    .accordion {
+        .accordion-item {
+           .accordion-button {
+                padding: 1rem;
+                font-size: 1rem;
+           }
+           .accordion-body {
+                padding: 0 1rem 1rem;
+                font-size: .875rem;
+            }
+        }
+    }
+}

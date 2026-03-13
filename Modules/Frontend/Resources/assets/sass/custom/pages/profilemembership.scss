@@ -1,0 +1,12 @@
+.profilemembership-bg-img {
+  z-index: 0;
+  top: 0;
+  right: 0;
+}
+@include media-breakpoint-down(md) {
+  .profilemembership-bg-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}

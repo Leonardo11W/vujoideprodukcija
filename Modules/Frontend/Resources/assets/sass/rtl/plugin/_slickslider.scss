@@ -1,0 +1,9 @@
+.slick-banner,
+.slick-general {
+  .slick-arrow {
+    &.slick-prev {
+      right: auto;
+      left: 1rem;
+    }
+  }
+}

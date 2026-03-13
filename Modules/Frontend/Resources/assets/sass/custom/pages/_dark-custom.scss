@@ -1,0 +1,25 @@
+[data-bs-theme='dark'] {
+    header {
+      .navbar-brand {
+        .logo-normal {
+          display: none;
+        }
+        .logo-dark {
+          display: block;
+        }
+      }
+    }
+
+      .navbar-brand {
+        .logo-main {
+            .logo-normal {
+              display: none;
+            }
+    
+            .logo-dark {
+              display: block;
+            }
+        }
+      }
+    
+}  

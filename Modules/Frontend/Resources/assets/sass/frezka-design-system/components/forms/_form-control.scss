@@ -1,0 +1,41 @@
+.bg-gray-800 {
+    .form-control {
+        background-color: var(--bs-gray-900);
+        border-color: var(--bs-border-color);
+
+        &::placeholder {
+            color: var(--bs-gray-100);
+        }
+    }
+
+    .input-group {
+        .input-group-text {
+            background-color: var(--bs-gray-900);
+            border-color: var(--bs-border-color);
+
+            &::placeholder {
+                color: var(--bs-gray-100);
+            }
+        }
+    }
+}
+
+.form-check-input {
+    &.form-check-secondary {
+        &:checked {
+            background-color: var(--bs-secondary);
+            border-color: var(--bs-secondary);
+        }
+
+        &:focus {
+            border-color: var(--bs-secondary);
+        }
+    }
+}
+
+.form-control {
+
+    &::placeholder {
+        color: var(--bs-gray-100);
+    }
+}

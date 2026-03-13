@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'title' => 'Users',
+    'account_crdential' => 'Account Credentials Sent to User.',
+    'user_created' => 'User Created Successfully.',
+    'lbl_old_password' => 'Old Password',
+    'lbl_new_password' => 'New Password',
+    'lbl_confirm_password' => 'Confirm Password',
+    'address_store' => 'User Address has been Stored',
+    'user_not_found' => 'User Not Found',
+    'address_list' => 'User Address List',
+    'address_not_found' => 'Address Not Found',
+    'address_deleted' => 'Address Deleted',
+    'address_updated' => 'Address Updated',
+    'old_password'=>'Enter your old password',
+    'new_password' =>'Enter your new password',
+    'confirm_password'=>'Confirm your new password',
+    'old_password_required' => 'Old Password is required field',
+    'new_password_required' => 'New password is required field',
+    'confirm_password_required' => 'Confirm Password is required field',
+    'password_min_length' => 'New password must be at least 8 characters',
+    'password_max_length' => 'Password can not be more than 12 characters',
+    'passwords_must_match' => 'Passwords must match',
+    'new_password_mismatch' => 'New password cannot be the same as the old password.',
+    'change_password' => 'Change Password',
+];

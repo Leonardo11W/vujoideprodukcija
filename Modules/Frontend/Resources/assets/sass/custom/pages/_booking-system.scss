@@ -1,0 +1,103 @@
+// uick booking
+.book-appointment-content {
+    .input-group.custom-input-group {
+        .form-control {
+            background-color: var(--bs-gray-900);
+            font-size: .75rem;
+            border: none;
+        }
+        .input-group-text {
+            background-color: var(--bs-gray-900);
+            font-size: .75rem;
+            border: none;
+        }
+    }
+    .form-control {
+        background-color: var(--bs-gray-900);
+        border-color: var(--bs-gray-900);
+        font-size: .75rem;
+    }
+    .dropdown-toggle {
+        position: relative;
+        &::after {
+            position: absolute;
+            left: auto;
+            right: 1rem;
+            height: 100%;
+            top: 50%;
+            font-size: 1rem;
+        }
+    }
+    .dropdown-menu {
+        background-color: var(--bs-gray-900);
+    }
+    .dropdown-time-panel {
+        width: 14.563rem;
+        padding: 1rem;
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem;
+            li {
+                a {
+                    background-color: var(--bs-gray-800);
+                    color: var(--bs-body-color);
+                    padding: 0.375rem;
+                    border-radius: var(--bs-border-radius);
+                    color: var(--bs-body-color);
+                    font-size: 0.625rem;
+                    line-height: 1.25rem;
+                    font-weight: 500;
+                }
+                &:hover {
+                    a {
+                        background-color: var(--bs-orange);
+                        color: var(--bs-dark);
+                    }
+                }
+                &.active {
+                    a {
+                        background-color: var(--bs-orange);
+                        color: var(--bs-dark);
+                    }
+                }
+                &.disabled {
+                    opacity: 0.75;
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+    .dropdown-service-panel {
+        width: 23.625rem;
+        padding: 1rem;
+        height: 21rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+        .service-lists {           
+            .service-item {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                transition: background 0.3s;
+                margin-bottom: 1.25rem;
+                .service-info {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;                    
+                }
+                &:last-child {
+                    margin-bottom: 0;
+                }  
+            }                     
+        }
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .book-appointment-content {
+        .dropdown-service-panel {
+            width: 82%;
+        }
+    }
+}

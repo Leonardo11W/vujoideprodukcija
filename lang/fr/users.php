@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'title' => 'Utilisateurs',
+    'account_crdential' => 'Informations de compte envoyées à l\'utilisateur.',
+    'user_created' => 'Utilisateur créé avec succès.',
+    'lbl_old_password' => 'Ancien mot de passe',
+    'lbl_new_password' => 'Nouveau mot de passe',
+    'lbl_confirm_password' => 'Confirmer le mot de passe',
+    'address_store' => 'L\'adresse de l\'utilisateur a été enregistrée.',
+    'user_not_found' => 'Utilisateur non trouvé',
+    'address_list' => 'Liste d\'adresses de l\'utilisateur',
+    'address_not_found' => 'Adresse non trouvée',
+    'address_deleted' => 'Adresse supprimée',
+    'address_updated' => 'Adresse mise à jour',
+    'old_password' => 'Entrez votre ancien mot de passe',
+    'new_password' => 'Entrez votre nouveau mot de passe',
+    'confirm_password' => 'Confirmez votre nouveau mot de passe',
+    'old_password_required' => 'L\'ancien mot de passe est un champ requis',
+    'new_password_required' => 'Le nouveau mot de passe est un champ requis',
+    'confirm_password_required' => 'La confirmation du mot de passe est un champ requis',
+    'password_min_length' => 'Le mot de passe doit contenir au moins 8 caractères',
+    'password_max_length' => 'Le mot de passe doit contenir au maximum 12 caractères',
+    'passwords_must_match' => 'Les mots de passe doivent correspondre',
+    'change_password' => 'Changer le mot de passe',
+    'new_password_mismatch' => 'Le nouveau mot de passe ne peut pas être le même que l\'ancien mot de passe.',
+];

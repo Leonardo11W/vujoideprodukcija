@@ -1,0 +1,192 @@
+.widget-price-filter .range-track {
+    height: 4px !important;
+    width: 100% !important;
+    background: #e2e8f0 !important;
+    border-radius: 2px !important;
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+}
+
+.widget-price-filter .range-fill {
+    position: absolute !important;
+    height: 4px !important;
+    background: #be185d !important;
+    border-radius: 2px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+}
+
+.widget-price-filter .range-input {
+    position: absolute !important;
+    width: 100% !important;
+    height: 16px !important;
+    background: none !important;
+    pointer-events: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    z-index: 2 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin: 0 !important;
+}
+
+/* Webkit (Chrome, Safari, newer versions of Opera) */
+.widget-price-filter .range-input::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    border-radius: 50% !important;
+    background: #2563eb !important;
+    border: none !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2) !important;
+    margin-top: 0 !important;
+    position: relative !important;
+    z-index: 3 !important;
+}
+
+/* Firefox */
+.widget-price-filter .range-input::-moz-range-thumb {
+    width: 16px !important;
+    height: 16px !important;
+    border-radius: 50% !important;
+    background: #2563eb !important;
+    border: none !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2) !important;
+    margin-top: 0 !important;
+    position: relative !important;
+    z-index: 3 !important;
+}
+
+/* Remove default focus styles */
+.widget-price-filter .range-input:focus {
+    outline: none !important;
+}
+
+.widget-price-filter .range-input::-webkit-slider-thumb:hover,
+.widget-price-filter .range-input::-moz-range-thumb:hover {
+    transform: scale(1.1) !important;
+    transition: transform 0.2s ease !important;
+}
+
+/* Additional overrides for the track */
+.widget-price-filter .range-input::-webkit-slider-runnable-track {
+    background: transparent !important;
+    border: none !important;
+}
+
+.widget-price-filter .range-input::-moz-range-track {
+    background: transparent !important;
+    border: none !important;
+}
+
+/* Rest of your existing styles */
+.widget-price-filter {
+    width: 100%;
+    max-width: 340px;
+}
+
+.price-range-wrapper {
+    padding: 0;
+    width: 100%;
+}
+
+.range-display {
+    color: #64748b;
+    width: 100%;
+    padding: 0 4px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.range-label {
+    font-size: 15px;
+    color: #64748b;
+}
+
+.range-value {
+    font-size: 16px;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.range-slider {
+    position: relative !important;
+    height: 16px !important;
+    margin: 24px 0 12px !important;
+    width: 100% !important;
+    padding: 0 4px !important;
+}
+
+.price-brackets {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    margin-top: 20px;
+    padding: 0 4px;
+}
+
+.price-badge {
+    padding: 8px 12px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 13px;
+    color: #475569;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.price-badge:hover {
+    background-color: #eff6ff;
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+.price-badge.active {
+    background-color: #eff6ff;
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+@media (max-width: 480px) {
+    .widget-price-filter {
+        max-width: 100%;
+    }
+
+    .price-range-wrapper {
+        padding: 0;
+    }
+    
+    .range-display,
+    .range-slider {
+        padding: 0 2px;
+    }
+
+    .price-brackets {
+        padding: 0 2px;
+        gap: 3px;
+    }
+    
+    .price-badge {
+        font-size: 12px;
+        padding: 6px 10px;
+        height: 32px;
+    }
+} 

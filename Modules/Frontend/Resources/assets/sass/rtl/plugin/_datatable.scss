@@ -1,0 +1,88 @@
+
+// data table
+div {
+  &.dataTables_wrapper {
+    div {
+
+        // serach 
+      &.dataTables_filter {
+        label {
+          position: relative;
+          display: flex;
+          flex-wrap: nowrap;
+          align-items: stretch;
+          width: auto;
+
+          .input-group-text {
+            border-color: var(--bs-gray-800);
+            border-right: var(--bs-border-width) solid var(--bs-gray-800);
+            border-left: none;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: var(--bs-border-radius) !important;
+            border-bottom-right-radius: var(--bs-border-radius) !important;
+
+            +.form-control {
+              padding-right: 0;
+              padding-left: 1.5rem;
+              border-right: none;
+              border-left: var(--bs-border-width) solid var(--bs-border-color);
+              border-top-left-radius: var(--bs-border-radius) !important;
+              border-bottom-left-radius: var(--bs-border-radius) !important;
+              border-top-right-radius: 0 !important;
+              border-bottom-right-radius: 0 !important;
+              border-color: var(--bs-gray-800);
+
+              &:focus {
+                border-color: var(--bs-primary);
+              }
+            }
+          }
+
+          &:focus-within {
+            .input-group-text {
+              border-color: var(--bs-primary);
+            }
+          }
+
+        }
+      }
+
+    }
+
+    
+// datatable pagination
+.pagination {
+.page-item {
+.page-link {
+    border-left: none;
+    border-right: var(--bs-border-width) solid var(--bs-border-color);
+    transition: all .5s ease-in-out;
+
+}
+
+&:first-child {
+    .page-link {
+    border-right: none;
+    border-top-right-radius: var(--bs-border-radius);
+    border-bottom-right-radius: var(--bs-border-radius);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    }
+}
+
+&:last-child {
+    .page-link {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: var(--bs-border-radius);
+    border-bottom-left-radius: var(--bs-border-radius);
+    }
+}
+
+}
+}
+
+  }
+}
