@@ -128,6 +128,7 @@ return [
 
     'available_locales' => [
         'bs' => 'Bosanski (BS)',
+        'hr' => 'Hrvatski (HR)',
         'ar' => 'العربی(AR)',
         'en' => 'English (EN)',
         'el' => 'Greek (EL)',

@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'title' => 'Kupci',
+    'singular_title' => 'Kupac',
+    'lbl_profile_image' => 'Slika profila',
+    'lbl_first_name' => 'Ime',
+    'lbl_last_name' => 'Prezime',
+    'lbl_Email' => 'Email',
+    'lbl_phone_number' => 'Broj telefona',
+    'lbl_gender' => 'Pol',
+    'lbl_status' => 'Status',
+    'lbl_verification_status' => 'Status verifikacije',
+    'lbl_blocked' => 'Blokiran',
+    'msg_verified' => 'Verificiran',
+    'msg_unverified' => 'Potrebna verifikacija',
+    'lbl_action' => 'Radnja',
+    'first_name' => 'Unesite ime',
+    'last_name' => 'Unesite prezime',
+    'email_address' => 'Unesite email adresu',
+    'password' => 'Unesite lozinku',
+    'confirm_password' => 'Potvrdite lozinku',
+    'wallet_balance' => 'Stanje novčanika',
+    'singular_title_edit' => 'Kupac',
+    'singular_title_new' => 'Kupac',
+];
