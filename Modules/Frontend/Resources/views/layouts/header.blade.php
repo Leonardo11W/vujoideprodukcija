@@ -267,25 +267,7 @@
                                             {{ strtoupper(App::getLocale()) }}
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-language mt-0">
-                                            <a class="dropdown-item {{ app()->getLocale() === 'bs' ? 'text-primary fw-semibold' : '' }}"
-                                                href="{{ route('frontend.language.switch', 'bs') }}">
-                                                <span class="d-flex align-items-center gap-3">
-                                                    <img src="{{ asset('images/flags/bs.png') }}"
-                                                        alt="Bosanski (BS) flag"
-                                                        class="img-fluid mr-2 avatar-20"
-                                                        onerror="this.onerror=null; this.src='https://flagcdn.com/w320/ba.png';">
-                                                    <span>Bosanski (BS)</span>
-                                                    @if (app()->getLocale() === 'bs')
-                                                        <span class="active-icon">
-                                                            <i class="ph-fill ph-check-fat align-middle"></i>
-                                                        </span>
-                                                    @endif
-                                                </span>
-                                            </a>
-                                            @php
-                                                $availableLocales = array_filter(config('app.available_locales', []), fn($k) => $k !== 'bs', ARRAY_FILTER_USE_KEY);
-                                            @endphp
-                                            @foreach ($availableLocales as $locale => $title)
+                                            @foreach (config('app.available_locales', []) as $locale => $title)
                                                 <a class="dropdown-item {{ app()->getLocale() === $locale ? 'text-primary fw-semibold' : '' }}"
                                                     href="{{ route('frontend.language.switch', $locale) }}">
                                                     <span class="d-flex align-items-center gap-3">
