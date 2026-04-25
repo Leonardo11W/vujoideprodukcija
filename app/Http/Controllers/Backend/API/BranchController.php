@@ -12,7 +12,7 @@ use App\Models\Branch;
 use App\Models\BranchGallery;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Modules\Booking\Models\Booking;
+use Modules\Booking\Models\BookingService;
 use Modules\BussinessHour\Models\BussinessHour;
 use Modules\Employee\Models\BranchEmployee;
 use Modules\Employee\Models\EmployeeRating;
@@ -228,26 +228,59 @@ class BranchController extends Controller
         // Prepare working days (Monday to Sunday → 1 to 7)
         $workingDays = collect();
 
+        $requestDate = $request->input('date');
+        $slotDurationSetting = setting('slot_duration') ?? '00:15';
+        $employeeIdInt = (int) $employee_id;
+
         for ($day = 1; $day <= 7; $day++) {
             $date = $startOfWeek->copy()->addDays($day - 1)->format('Y-m-d');
 
-            $slot = $branchSlotByDay->get($day, [
+            $rawSlot = $branchSlotByDay->get($day, [
                 'day' => $day,
                 'start_time' => null,
                 'end_time' => null,
                 'is_holiday' => 1,
                 'breaks' => [],
             ]);
+            if (! is_array($rawSlot)) {
+                $slot = $rawSlot->toArray();
+            } else {
+                $slot = $rawSlot;
+            }
+
+            $availableSlotsPayload = null;
+            $isRequestDayInWeek = false;
+            if (! empty($requestDate) && $employeeIdInt > 0) {
+                $target = Carbon::parse($requestDate);
+                if ($target->dayOfWeekIso === $day) {
+                    $isRequestDayInWeek = true;
+                    $availableSlotsPayload = $this->buildAvailableSlotsForDate(
+                        $requestDate,
+                        $slot,
+                        (int) $branch_id,
+                        $employeeIdInt,
+                        (int) $serviceDuration,
+                        (string) $slotDurationSetting
+                    );
+                }
+            }
+
+            // Za dan u tjednu koji odgovara ?date= klijentu — uvijek niz (prazan = nema slobodnih);
+            // klijent rješenjem lažno slobodnih oslanja se na taj niz, ne na null.
+            $availableSlotsOut = $availableSlotsPayload;
+            if ($isRequestDayInWeek) {
+                $availableSlotsOut = is_array($availableSlotsPayload) ? $availableSlotsPayload : [];
+            }
 
             $workingDays->push([
-                'day' => $slot['day'],
-                'start_time' => $slot['start_time'],
-                'end_time' => $slot['end_time'],
-                // 'is_holiday' => $slot['is_holiday'],
+                'day' => $slot['day'] ?? $day,
+                'start_time' => $slot['start_time'] ?? null,
+                'end_time' => $slot['end_time'] ?? null,
                 'is_festival_holiday' => $holidayDaysInWeek->contains($day) ? 1 : 0,
-                'is_day_off' => $slot['is_holiday'] == 1 ? 1 : 0,
+                'is_day_off' => ($slot['is_holiday'] ?? 1) == 1 ? 1 : 0,
                 'date' => $date,
-                'breaks' => $slot['breaks'],
+                'breaks' => $slot['breaks'] ?? [],
+                'available_slots' => $availableSlotsOut,
             ]);
         }
 
@@ -290,18 +323,43 @@ class BranchController extends Controller
 
     public function verifySlot(Request $request)
     {
-        $employee_id = $request->employee_id;
-        $start_date_time = $request->start_date_time;
-
-        $booking = Booking::with('bookingService')->where('start_date_time', $start_date_time)
-            ->whereHas('bookingService', function ($query) use ($employee_id) {
-                $query->where('employee_id', $employee_id);
-            });
-        if ($booking->count() > 0) {
-            return response()->json(['status' => false, 'message' => __('branch.branch_reserved')]);
-        } else {
-            return response()->json(['status' => true, 'message' => '']);
+        $employeeId = (int) $request->input('employee_id', 0);
+        $branchId = (int) $request->input('branch_id', 0);
+        $startDateTime = $request->input('start_date_time');
+        $newDuration = (int) $request->input('service_duration', 0);
+        if ($newDuration <= 0) {
+            $newDuration = $this->parseSlotDurationStringToMinutes((string) (setting('slot_duration') ?? '00:15'), 15);
         }
+
+        if ($employeeId <= 0 || $branchId <= 0 || empty($startDateTime)) {
+            return response()->json(['status' => false, 'message' => __('branch.invalid_action')]);
+        }
+
+        $newStart = Carbon::parse($startDateTime);
+        $newEnd = $newStart->copy()->addMinutes($newDuration);
+
+        $rows = BookingService::query()
+            ->join('bookings', 'booking_services.booking_id', '=', 'bookings.id')
+            ->where('bookings.branch_id', $branchId)
+            ->where('booking_services.employee_id', $employeeId)
+            ->whereDate('booking_services.start_date_time', $newStart->toDateString())
+            ->where('bookings.status', '!=', 'cancelled')
+            ->get(['booking_services.start_date_time', 'booking_services.duration_min']);
+
+        $stepFallback = $this->parseSlotDurationStringToMinutes((string) (setting('slot_duration') ?? '00:15'), 15);
+        foreach ($rows as $row) {
+            $s = Carbon::parse($row->start_date_time);
+            $d = (int) ($row->duration_min ?? 0);
+            if ($d <= 0) {
+                $d = $stepFallback;
+            }
+            $e = $s->copy()->addMinutes($d);
+            if ($newStart->lt($e) && $newEnd->gt($s)) {
+                return response()->json(['status' => false, 'message' => __('branch.branch_reserved')]);
+            }
+        }
+
+        return response()->json(['status' => true, 'message' => '']);
     }
     public function managerReviewsList(Request $request)
     {
@@ -371,5 +429,128 @@ class BranchController extends Controller
             'message' => 'Reviews list fetched successfully.',
             'data' => $data,
         ], 200);
+    }
+
+    /**
+     * Start times where a booking of length $serviceDurationMin fits in working hours, outside breaks, and not overlapping existing bookings.
+     */
+    protected function buildAvailableSlotsForDate(
+        string $dateYmd,
+        array $slot,
+        int $branchId,
+        int $employeeId,
+        int $serviceDurationRequest,
+        string $slotDurationSetting
+    ): array {
+        $stepMinutes = $this->parseSlotDurationStringToMinutes($slotDurationSetting, 15);
+        $serviceDurationMin = (int) $serviceDurationRequest;
+        if ($serviceDurationMin <= 0) {
+            $serviceDurationMin = $stepMinutes;
+        }
+
+        $startTimeStr = $slot['start_time'] ?? null;
+        $endTimeStr = $slot['end_time'] ?? null;
+        if (empty($startTimeStr) || empty($endTimeStr) || (int) ($slot['is_holiday'] ?? 0) == 1) {
+            return [];
+        }
+
+        $day = Carbon::parse($dateYmd)->startOfDay();
+        $dayPrefix = $day->format('Y-m-d');
+        $start = Carbon::parse($dayPrefix.' '.trim($startTimeStr));
+        $end = Carbon::parse($dayPrefix.' '.trim($endTimeStr));
+        if ($end->lte($start)) {
+            return [];
+        }
+
+        $rows = BookingService::query()
+            ->join('bookings', 'booking_services.booking_id', '=', 'bookings.id')
+            ->where('bookings.branch_id', $branchId)
+            ->where('booking_services.employee_id', $employeeId)
+            ->whereDate('booking_services.start_date_time', $dateYmd)
+            ->where('bookings.status', '!=', 'cancelled')
+            ->get(['booking_services.start_date_time', 'booking_services.duration_min']);
+
+        $busy = [];
+        foreach ($rows as $row) {
+            $s = Carbon::parse($row->start_date_time);
+            $d = (int) ($row->duration_min ?? 0);
+            if ($d <= 0) {
+                $d = $stepMinutes;
+            }
+            $busy[] = [$s, $s->copy()->addMinutes($d)];
+        }
+
+        $breaks = $slot['breaks'] ?? [];
+        $out = [];
+        $cursor = $start->copy();
+
+        while ($cursor->copy()->addMinutes($serviceDurationMin)->lte($end)) {
+            $slotStart = $cursor->copy();
+            $slotEnd = $cursor->copy()->addMinutes($serviceDurationMin);
+
+            if ($slotEnd->gt($end)) {
+                break;
+            }
+
+            $inBreak = false;
+            foreach ((array) $breaks as $br) {
+                if (! is_array($br)) {
+                    continue;
+                }
+                $bs = $br['start_break'] ?? null;
+                $be = $br['end_break'] ?? null;
+                if (empty($bs) || empty($be)) {
+                    continue;
+                }
+                $breakStart = Carbon::parse($dayPrefix.' '.trim($bs));
+                $breakEnd = Carbon::parse($dayPrefix.' '.trim($be));
+                if ($slotStart->lt($breakEnd) && $slotEnd->gt($breakStart)) {
+                    $inBreak = true;
+                    break;
+                }
+            }
+            if ($inBreak) {
+                $cursor->addMinutes($stepMinutes);
+                continue;
+            }
+
+            $overlaps = false;
+            foreach ($busy as $b) {
+                /** @var Carbon $b0 */
+                $b0 = $b[0];
+                $b1 = $b[1];
+                if ($slotStart->lt($b1) && $slotEnd->gt($b0)) {
+                    $overlaps = true;
+                    break;
+                }
+            }
+            if (! $overlaps) {
+                $out[] = [
+                    'value' => $slotStart->format('Y-m-d H:i:s'),
+                    'label' => $slotStart->format('H:i'),
+                    'disabled' => false,
+                ];
+            }
+            $cursor->addMinutes($stepMinutes);
+        }
+
+        return $out;
+    }
+
+    protected function parseSlotDurationStringToMinutes(string $slotDurationSetting, int $default): int
+    {
+        if ($slotDurationSetting === '' || $slotDurationSetting === '0' || $slotDurationSetting === '00:00') {
+            return $default;
+        }
+        $parts = array_map('intval', array_pad(explode(':', $slotDurationSetting), 3, 0));
+        $h = $parts[0] ?? 0;
+        $m = $parts[1] ?? 0;
+        $s = $parts[2] ?? 0;
+        $total = $h * 60 + $m + (int) round($s / 60);
+        if ($total <= 0) {
+            return $default;
+        }
+
+        return $total;
     }
 }
