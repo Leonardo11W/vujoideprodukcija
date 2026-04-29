@@ -1,4 +1,4 @@
-<div class="section-spacing-bottom">
+<div class="section-spacing-bottom vujo-section vujo-video-feature">
     <div class="container-fluid">
         <div class="section-title text-center">
             <span class="decorator-title decorator-font text-primary text-uppercase text-decoration-underline">{{__('frontend.why_frezka')}}</span>

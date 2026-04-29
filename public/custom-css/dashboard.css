@@ -151,7 +151,7 @@ div.dataTables_wrapper div.dataTables_processing {
 }
 
 .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n+1)), .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n+1)), .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n+1)) {
-  box-shadow: -10px 0 0 rgba(var(--bs-primary-rgb), .8);
+  box-shadow: -10px 0 0 rgba(var(--bs-primary-rgb, 134, 46, 111), .8);
 }
 :root {
 	--animate-duration: 400ms;
@@ -369,4 +369,428 @@ legend {
 
 .dark .multiselect-no-options {
   color: #ffffff !important;
+}
+
+/* ===== Admin Panel UI/UX Redesign ===== */
+
+/* Design system: spacing & cards */
+:root {
+  --admin-spacing-xs: 0.5rem;
+  --admin-spacing-sm: 1rem;
+  --admin-spacing-md: 1.5rem;
+  --admin-spacing-lg: 2rem;
+  --admin-card-radius: 0.75rem;
+  --admin-card-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.06), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.04);
+  --admin-card-shadow-hover: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.08), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.04);
+}
+
+/* Card improvements */
+.card {
+  border-radius: var(--admin-card-radius) !important;
+  box-shadow: var(--admin-card-shadow) !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card:hover {
+  box-shadow: var(--admin-card-shadow-hover) !important;
+}
+.card-header {
+  border-radius: var(--admin-card-radius) var(--admin-card-radius) 0 0 !important;
+}
+#page_layout .card .card-body {
+  padding: var(--admin-spacing-md) !important;
+}
+
+/* Custom scrollbar - sidebar & content */
+.data-scrollbar::-webkit-scrollbar,
+.sidebar-body::-webkit-scrollbar,
+.upcoming-appointments::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.data-scrollbar::-webkit-scrollbar-track,
+.sidebar-body::-webkit-scrollbar-track,
+.upcoming-appointments::-webkit-scrollbar-track {
+  background: var(--bs-border-color-translucent, rgba(0,0,0,0.05));
+  border-radius: 3px;
+}
+.data-scrollbar::-webkit-scrollbar-thumb,
+.sidebar-body::-webkit-scrollbar-thumb,
+.upcoming-appointments::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+.data-scrollbar::-webkit-scrollbar-thumb:hover,
+.sidebar-body::-webkit-scrollbar-thumb:hover,
+.upcoming-appointments::-webkit-scrollbar-thumb:hover {
+  background: var(--bs-primary);
+}
+.dark .data-scrollbar::-webkit-scrollbar-thumb,
+.dark .sidebar-body::-webkit-scrollbar-thumb,
+.dark .upcoming-appointments::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+.dark .data-scrollbar::-webkit-scrollbar-thumb:hover,
+.dark .sidebar-body::-webkit-scrollbar-thumb:hover,
+.dark .upcoming-appointments::-webkit-scrollbar-thumb:hover {
+  background: var(--bs-primary);
+}
+
+/* Form focus improvements */
+.form-control:focus,
+.form-select:focus {
+  box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb, 134, 46, 111), 0.15) !important;
+}
+.form-label {
+  margin-bottom: 0.375rem;
+}
+
+/* DataTables improvements */
+.dataTables_wrapper .dataTable thead th {
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+}
+.dataTables_wrapper .dataTable tbody tr:hover {
+  background-color: rgba(var(--bs-primary-rgb, 134, 46, 111), 0.04) !important;
+}
+
+/* Modal & Offcanvas consistency */
+.modal-content,
+.offcanvas {
+  border-radius: var(--admin-card-radius) !important;
+  box-shadow: var(--admin-card-shadow-lg, 0 0.5rem 1.5rem rgba(0,0,0,0.15)) !important;
+}
+
+/* Sidebar redizajn - cleaner layout, active state */
+.sidebar-base .sidebar-body {
+  padding: 0.5rem 0.75rem;
+}
+.sidebar-base .nav-item .nav-link {
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  margin: 0 0.25rem;
+}
+.sidebar-base .nav-item .nav-link:hover {
+  background-color: rgba(var(--bs-primary-rgb, 134, 46, 111), 0.08);
+}
+.sidebar-base .nav-item .nav-link.active {
+  background-color: rgba(var(--bs-primary-rgb, 134, 46, 111), 0.12);
+  color: var(--bs-primary) !important;
+  font-weight: 500;
+}
+.sidebar-base .nav-item.static-item .default-icon {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  padding: 0.5rem 1rem;
+  color: var(--bs-secondary);
+}
+.sidebar-base .sidebar-toggle {
+  border-radius: 0.5rem;
+  padding: 0.35rem;
+}
+
+/* Header redizajn - cleaner navbar */
+.iq-navbar.navbar {
+  padding: 0.5rem 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.iq-navbar .navbar-inner {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.iq-navbar .iq-font-style label {
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.375rem;
+  transition: background 0.2s;
+}
+.iq-navbar .iq-font-style label:hover {
+  background: rgba(var(--bs-primary-rgb, 134, 46, 111), 0.08);
+}
+.iq-navbar .theme-scheme-dropdown .change-mode {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s;
+}
+.iq-navbar .theme-scheme-dropdown .change-mode:hover {
+  background: rgba(var(--bs-primary-rgb, 134, 46, 111), 0.08);
+}
+.iq-navbar .iq-sub-drop .card {
+  min-width: 280px;
+  border-radius: var(--admin-card-radius);
+}
+.iq-navbar .notification_list .btn-action {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+}
+.iq-navbar .notification-alert {
+  font-size: 0.7rem;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+}
+
+/* Sub-header (banner) redizajn */
+.admin-sub-header {
+  min-height: 80px !important;
+  height: auto !important;
+  padding: 1rem 0;
+  position: relative;
+}
+.admin-sub-header .iq-header-img {
+  height: 100px !important;
+  min-height: 80px;
+}
+.admin-sub-header .iq-container {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+.admin-page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.admin-sub-header .btn-admin-cta {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.admin-sub-header .btn-admin-cta:hover {
+  background: rgba(255,255,255,0.2) !important;
+  border-color: rgba(255,255,255,0.4);
+  color: inherit;
+}
+
+/* Dashboard redizajn */
+.admin-dashboard .dashboard-section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+.admin-dashboard .dashboard-date-range {
+  min-width: 200px;
+  border-radius: 0.5rem;
+}
+.admin-dashboard .dashboard-cards {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.admin-dashboard .dashboard-cards:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--admin-card-shadow-hover) !important;
+}
+.admin-dashboard .dashboard-cards .card-body {
+  padding: 1.25rem !important;
+}
+.admin-dashboard .dashboard-cards h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.admin-dashboard .dashboard-cards p {
+  font-size: 0.875rem;
+  color: var(--bs-secondary-color);
+}
+.admin-dashboard .upcoming-appointments .list-group-item {
+  padding: 1rem 1.25rem;
+  border-radius: 0;
+  transition: background 0.2s;
+}
+.admin-dashboard .upcoming-appointments .list-group-item:hover {
+  background: rgba(var(--bs-primary-rgb, 134, 46, 111), 0.04) !important;
+}
+.admin-dashboard .upcoming-appointments .avatar-60 {
+  width: 48px;
+  height: 48px;
+}
+.admin-top-services-table {
+  border-radius: var(--admin-card-radius) !important;
+  overflow: hidden;
+}
+.admin-top-services-table thead th {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+}
+.admin-top-services-table tbody tr:hover {
+  background-color: rgba(var(--bs-primary-rgb, 134, 46, 111), 0.04) !important;
+}
+
+/* Footer redizajn - minimalniji */
+.footer .footer-body {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.8125rem;
+  color: var(--bs-secondary-color);
+}
+.footer .footer-body a {
+  color: var(--bs-primary);
+  text-decoration: none;
+}
+.footer .footer-body a:hover {
+  text-decoration: underline;
+}
+
+/* Dark mode refinements */
+.dark .card {
+  border-color: rgba(255,255,255,0.08);
+}
+.dark .admin-dashboard .dashboard-cards:hover {
+  border-color: rgba(var(--bs-primary-rgb, 134, 46, 111), 0.3);
+}
+.dark .sidebar-base .nav-item .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+.dark .sidebar-base .nav-item .nav-link.active {
+  background-color: rgba(var(--bs-primary-rgb, 134, 46, 111), 0.2);
+}
+
+/* ===== Admin Page – All Pages Redesign ===== */
+
+/* Datatable list pages */
+.admin-page .card .card-body {
+  padding: 1.5rem !important;
+}
+.admin-page .d-flex.justify-content-between.flex-column.flex-md-row {
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.admin-page .btn-toolbar {
+  gap: 0.75rem !important;
+}
+.admin-page .input-group .form-control {
+  border-radius: 0 0.5rem 0.5rem 0;
+  min-width: 200px;
+}
+.admin-page .input-group-text {
+  border-radius: 0.5rem 0 0 0.5rem;
+  background: var(--bs-tertiary-bg, #f8f9fa);
+}
+.admin-page .datatable-filter .form-control,
+.admin-page .datatable-filter .select2 {
+  min-width: 140px;
+  border-radius: 0.5rem;
+}
+.admin-page #datatable_wrapper {
+  margin-top: 1rem;
+}
+.admin-page .dataTables_paginate .pagination {
+  gap: 0.25rem;
+}
+.admin-page .dataTables_paginate .page-link {
+  border-radius: 0.375rem !important;
+}
+.admin-page .table.table-striped tbody tr:hover {
+  background-color: rgba(var(--bs-primary-rgb, 134, 46, 111), 0.04) !important;
+}
+.admin-page .table thead th {
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+}
+
+/* Quick action */
+.admin-page #quick-action-form {
+  gap: 0.5rem;
+  align-items: center;
+}
+.admin-page #quick-action-form .form-control,
+.admin-page #quick-action-form .select2-container {
+  min-width: 120px;
+}
+.admin-page #quick-action-apply {
+  border-radius: 0.5rem;
+  padding: 0.375rem 0.75rem;
+}
+
+/* Offcanvas / New button */
+.admin-page .btn-primary[data-bs-toggle="offcanvas"],
+.admin-page [data-bs-toggle="offcanvas"].btn-primary {
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+}
+
+/* Report pages */
+.admin-page .card .card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.admin-page .booking-date-range,
+.admin-page .dashboard-date-range {
+  border-radius: 0.5rem;
+  min-width: 180px;
+}
+.admin-page .input-group.gap-2 {
+  gap: 0.5rem !important;
+}
+.admin-page .card .table {
+  margin-bottom: 0;
+}
+.admin-page .card .table thead th {
+  background: var(--bs-primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+}
+
+/* Form pages (create/edit) */
+.admin-page .form-group,
+.admin-page .mb-3 {
+  margin-bottom: 1rem !important;
+}
+.admin-page .form-label {
+  font-weight: 500;
+  margin-bottom: 0.375rem;
+}
+.admin-page .btn-group .btn,
+.admin-page .modal-footer .btn {
+  border-radius: 0.5rem;
+}
+
+/* Offcanvas forms */
+.offcanvas .offcanvas-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--bs-border-color);
+}
+.offcanvas .offcanvas-body {
+  padding: 1.25rem;
+}
+
+/* Detail / Show pages */
+.admin-page .card .card-header {
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+}
+.admin-page .nav-tabs .nav-link {
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 0.5rem 1rem;
+}
+.admin-page .tab-content {
+  padding-top: 1rem;
+}
+
+/* Section header component */
+.admin-section-header .d-flex:first-child h4,
+.admin-section-header .d-flex:first-child h3,
+.admin-section-header .d-flex:first-child h2 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Quick action component */
+.admin-quick-action #quick-action-apply:not(:disabled) {
+  white-space: nowrap;
+}
+
+/* Advance filter offcanvas */
+.admin-advance-filter .offcanvas-header {
+  padding: 1rem 1.25rem;
+}
+.admin-advance-filter .offcanvas-body {
+  padding: 1.25rem;
 }

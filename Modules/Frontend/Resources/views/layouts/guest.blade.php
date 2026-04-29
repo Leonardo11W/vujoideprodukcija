@@ -76,18 +76,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Lexend+Deca:wght@100..900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&subset=latin,latin-ext&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('modules/frontend/style.css') }}">
+    <link rel="stylesheet" href="{{ mix('modules/frontend/style.css') }}">
 
     <link rel="stylesheet" href="{{ asset('iconly/css/style.css') }}">
 
     <!-- <link rel="stylesheet" href="{{ asset('iconly/css/style.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('phosphor-icons/regular/style.css') }}">
     <link rel="stylesheet" href="{{ asset('phosphor-icons/fill/style.css') }}">
-
-    <link rel="stylesheet" href="{{ asset('modules/frontend/style.css') }}">
     @include('frontend::components.partials.head.plugins')
 
 </head>
@@ -97,7 +95,7 @@
 
     @yield('content')
 
-    <script src="{{ asset('modules/frontend/script.js') }}"></script>
+    <script src="{{ mix('modules/frontend/script.js') }}"></script>
     @stack('scripts')
 
 

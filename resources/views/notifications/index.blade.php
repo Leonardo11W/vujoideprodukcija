@@ -8,7 +8,7 @@
             <li class="list-group-item {{ $notification->read_at ? '' : 'list-group-item-info' }}">
                 <strong>{{ $notification->data['title'] ?? 'Notification' }}</strong><br>
                 {!! html_entity_decode($notification->data['message'] ?? '') !!}<br>
-                <small>{{ $notification->created_at->format('d/m/Y h:i A') }}</small>
+                <small>{{ $notification->created_at->format('d/m/Y H:i') }}</small>
             </li>
         @empty
             <li class="list-group-item">No notifications found.</li>

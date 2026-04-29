@@ -22,7 +22,7 @@ class LanguageController extends Controller
 
         Carbon::setLocale($language);
 
-        flash()->success(__('Language changed to').' '.strtoupper($language))->important();
+        flash()->success(__('messages.language_changed', ['code' => strtoupper($language)]))->important();
 
         return redirect()->back();
     }

@@ -17,18 +17,27 @@ class BookingListResource extends JsonResource
     {
         $employee_id=optional($this->booking_service->first())->employee_id?? optional($this->bookingPackages->first())->employee_id;
         $primaryAmount = ($this->booking_service ? $this->booking_service->sum('service_price') : 0) + ($this->bookingPackages ? $this->bookingPackages->sum('package_price') : 0);
-        $couponAmount = UserCouponRedeem::where('booking_id', $this->id)->value('discount');
+        $couponRaw = UserCouponRedeem::where('booking_id', $this->id)->value('discount');
+        $couponAmount = $couponRaw !== null && $couponRaw !== '' ? (float) $couponRaw : 0;
         $couponcut_amount = $primaryAmount - $couponAmount;
         $tax_details = getBookingTaxamount(
             $primaryAmount + ($this->products ? $this->products->sum('discounted_price') : 0),
             $couponAmount,
             $this->payment ? $this->payment->tax_percentage : null
         );
+
+        try {
+            $formattedStart = $this->start_date_time
+                ? Carbon::parse($this->start_date_time)->format('j F Y \a\t H:i')
+                : '-';
+        } catch (\Throwable $e) {
+            $formattedStart = '-';
+        }
   return [
             'id' => $this->id,
             'booking_id' => get_formatted_booking_id($this->id),
             'note' => $this->note,
-            'start_date_time' => Carbon::parse($this->start_date_time)->format('j F Y \a\t h:i A'),
+            'start_date_time' => $formattedStart,
             'branch_id' => $this->branch_id,
             'branch_name' => optional($this->branch)->name ?? '-',
             'address_line_1' => optional(optional($this->branch)->address)->address_line_1 ?? '-',
@@ -45,14 +54,21 @@ class BookingListResource extends JsonResource
             'services' => $this->booking_service->isNotEmpty()
             ? $this->booking_service->map(function ($booking_service) {
                 unset($booking_service['employee']);
-                $booking_service['service_name'] = $booking_service['service']->name;
-                $booking_service['service_image'] = $booking_service['service']->feature_image ?? '-';
+                $svc = $booking_service->service;
+                $booking_service['service_name'] = optional($svc)->name ?? '-';
+                $booking_service['service_image'] = optional($svc)->feature_image ?? '-';
                 unset($booking_service['service']);
                 return $booking_service;
             })
             :($this->bookingPackages->isNotEmpty()
             ? $this->bookingPackages->flatMap(function ($bookingPackage) {
-                return (new BookingPackageResource($bookingPackage))->toArray(request())['services'];
+                try {
+                    $payload = (new BookingPackageResource($bookingPackage))->toArray(request());
+
+                    return $payload['services'] ?? [];
+                } catch (\Throwable $e) {
+                    return [];
+                }
             })
             : []),
             'user_id' => $this->user_id,
@@ -62,14 +78,14 @@ class BookingListResource extends JsonResource
             'status' => $this->status,
             'created_by_name' => optional($this->createdUser)->full_name ?? default_user_name(),
             'updated_by_name' => optional($this->updatedUser)->full_name ?? default_user_name(),
-            'created_at' => date('D, M Y', strtotime($this->created_at)),
-            'updated_at' => date('D, M Y', strtotime($this->updated_at)),
+            'created_at' => $this->created_at ? date('D, M Y', strtotime((string) $this->created_at)) : '-',
+            'updated_at' => $this->updated_at ? date('D, M Y', strtotime((string) $this->updated_at)) : '-',
             'payment' => $this->payment,
             'sumOfServicePrices' => $this->booking_service ? $this->booking_service->sum('service_price') : 0,
             'sumOfProductPrices' => $this->products ? $this->products->sum('discounted_price') : 0,
             'tax_amount' => $tax_details['total_tax_amount'],
             'total_amount' => ( ($primaryAmount + ($this->products ? $this->products->sum('discounted_price') : 0) + $tax_details['total_tax_amount'] + ($this->payment ? $this->payment->tip_amount : 0)))-$couponAmount,
-            'coupon_amount' => $couponAmount ?? 0,
+            'coupon_amount' => $couponAmount,
             'sumOfPackagesPrices'=>$this->bookingPackages ? $this->bookingPackages->sum('package_price') : 0,
             'packages' => $this->bookingPackages->isNotEmpty()
                 ? BookingPackageResource::collection($this->bookingPackages)

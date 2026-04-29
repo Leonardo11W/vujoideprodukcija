@@ -157,7 +157,7 @@
                             <span>{{ __('frontend.time') }}</span>
                         </span>
                         <span id="booking-time-{{ $booking->id }}"
-                            class="font-size-14">{{ \Carbon\Carbon::parse($booking->start_date_time)->format('h:i A') }}</span>
+                            class="font-size-14">{{ \Carbon\Carbon::parse($booking->start_date_time)->format('H:i') }}</span>
                     </span>
                 </div>
                 <div class="col-md-4 mt-md-0 mt-3">

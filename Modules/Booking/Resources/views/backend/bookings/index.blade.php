@@ -12,8 +12,8 @@
 @endhasPermission
 @endsection
 @section('content')
-<div class="card">
-    <div class="card-body">
+<div class="card booking-calendar-page border-0 shadow-sm">
+    <div class="card-body pt-2 pb-3 px-2 px-md-3">
       <div data-render="app">
         <calendar-view
           slot-duration="{{ setting('slot_duration') }}"

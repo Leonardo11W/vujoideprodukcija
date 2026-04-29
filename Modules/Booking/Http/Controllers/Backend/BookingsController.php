@@ -531,11 +531,13 @@ class BookingsController extends Controller
             }
             if (isset($filter['booking_date']) && $filter['booking_date'] !== '') {
                 try {
-                    $dates = explode(' to ', $filter['booking_date']);
-                    $startDate = $dates[0];
-                    $endDate = isset($dates[1]) ? $dates[1] : $dates[0];
-                    $query->whereDate('start_date_time', '>=', $startDate);
-                    $query->whereDate('start_date_time', '<=', $endDate);
+                    $dates = $this->splitFlatpickrRange($filter['booking_date']);
+                    $startDate = $dates[0] ?? null;
+                    $endDate = isset($dates[1]) ? $dates[1] : ($dates[0] ?? null);
+                    if ($startDate && $endDate) {
+                        $query->whereDate('start_date_time', '>=', $startDate);
+                        $query->whereDate('start_date_time', '<=', $endDate);
+                    }
                 } catch (\Exception $e) {
                     \Log::error($e->getMessage());
                 }

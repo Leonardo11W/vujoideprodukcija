@@ -207,11 +207,25 @@ class BranchController extends Controller
             $is_festival_holiday = 1;
         }
 
-        // Get start and end of current week (Monday to Sunday)
-        $startOfWeek = Carbon::now()->startOfWeek(Carbon::MONDAY);
-        $endOfWeek = Carbon::now()->endOfWeek(Carbon::SUNDAY);
+        $requestDate = $request->input('date');
+        if (is_array($requestDate)) {
+            $requestDate = $requestDate[0] ?? null;
+        }
+        if ($requestDate !== null && ! is_string($requestDate)) {
+            $requestDate = (string) $requestDate;
+        }
+        if (is_string($requestDate)) {
+            $requestDate = trim($requestDate) === '' ? null : trim($requestDate);
+        }
+        if (! empty($requestDate)) {
+            $startOfWeek = Carbon::parse($requestDate)->copy()->startOfWeek(Carbon::MONDAY);
+            $endOfWeek = Carbon::parse($requestDate)->copy()->endOfWeek(Carbon::SUNDAY);
+        } else {
+            $startOfWeek = Carbon::now()->startOfWeek(Carbon::MONDAY);
+            $endOfWeek = Carbon::now()->endOfWeek(Carbon::SUNDAY);
+        }
 
-        // Get holiday days in current week, convert Sunday (0) to 7
+        // Get holiday days in the same week as $startOfWeek, convert Sunday (0) to 7
         $holidayDaysInWeek = $holidays->filter(function ($holiday) use ($startOfWeek, $endOfWeek) {
             return Carbon::parse($holiday->date)->between($startOfWeek, $endOfWeek);
         })->map(function ($holiday) {
@@ -228,9 +242,18 @@ class BranchController extends Controller
         // Prepare working days (Monday to Sunday → 1 to 7)
         $workingDays = collect();
 
-        $requestDate = $request->input('date');
         $slotDurationSetting = setting('slot_duration') ?? '00:15';
         $employeeIdInt = (int) $employee_id;
+
+        // ISO-8601 dan 1–7 (pon–ned), isto kao $day u petlji; format('N') je pouzdanije od Carbon dayOfWeekIso u usporedbi s ===
+        $requestTargetIsoDow = null;
+        if (! empty($requestDate) && is_string($requestDate) && $employeeIdInt > 0) {
+            try {
+                $requestTargetIsoDow = (int) Carbon::parse($requestDate)->format('N');
+            } catch (\Throwable $e) {
+                $requestTargetIsoDow = null;
+            }
+        }
 
         for ($day = 1; $day <= 7; $day++) {
             $date = $startOfWeek->copy()->addDays($day - 1)->format('Y-m-d');
@@ -250,19 +273,16 @@ class BranchController extends Controller
 
             $availableSlotsPayload = null;
             $isRequestDayInWeek = false;
-            if (! empty($requestDate) && $employeeIdInt > 0) {
-                $target = Carbon::parse($requestDate);
-                if ($target->dayOfWeekIso === $day) {
-                    $isRequestDayInWeek = true;
-                    $availableSlotsPayload = $this->buildAvailableSlotsForDate(
-                        $requestDate,
-                        $slot,
-                        (int) $branch_id,
-                        $employeeIdInt,
-                        (int) $serviceDuration,
-                        (string) $slotDurationSetting
-                    );
-                }
+            if ($requestTargetIsoDow !== null && $requestTargetIsoDow === $day && is_string($requestDate)) {
+                $isRequestDayInWeek = true;
+                $availableSlotsPayload = $this->buildAvailableSlotsForDate(
+                    $requestDate,
+                    $slot,
+                    (int) $branch_id,
+                    $employeeIdInt,
+                    (int) $serviceDuration,
+                    (string) $slotDurationSetting
+                );
             }
 
             // Za dan u tjednu koji odgovara ?date= klijentu — uvijek niz (prazan = nema slobodnih);
@@ -483,6 +503,7 @@ class BranchController extends Controller
         $breaks = $slot['breaks'] ?? [];
         $out = [];
         $cursor = $start->copy();
+        $isTargetToday = Carbon::parse($dateYmd)->isToday();
 
         while ($cursor->copy()->addMinutes($serviceDurationMin)->lte($end)) {
             $slotStart = $cursor->copy();
@@ -510,6 +531,11 @@ class BranchController extends Controller
                 }
             }
             if ($inBreak) {
+                $cursor->addMinutes($stepMinutes);
+                continue;
+            }
+
+            if ($isTargetToday && ! $slotStart->gt(Carbon::now())) {
                 $cursor->addMinutes($stepMinutes);
                 continue;
             }

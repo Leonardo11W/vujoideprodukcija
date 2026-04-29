@@ -20,7 +20,16 @@ class DashboardController extends Controller
             ->paginate($perPage)
             ->forPage(1, 6);
 
-        $productQuery = Product::where('status', 1)->with('media', 'categories', 'brand', 'unit', 'product_variations', 'gallery');
+        $productQuery = Product::where('status', 1)->with(
+            'media',
+            'categories',
+            'brand',
+            'unit',
+            'product_variations',
+            'gallery',
+            'product_review.user',
+            'product_review.likes'
+        );
 
         $featuredProduct = $productQuery->where('is_featured', 1)->inRandomOrder()->paginate($perPage)->forPage(1, 6);
 

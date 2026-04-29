@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -12,6 +13,25 @@ use Maatwebsite\Excel\Facades\Excel;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    /**
+     * Split flatpickr range from dashboard/reports ("YYYY-MM-DD to YYYY-MM-DD" or Croatian "do").
+     *
+     * @return string[] date fragments parseable by Carbon
+     */
+    protected function splitFlatpickrRange(?string $raw): array
+    {
+        if ($raw === null || trim($raw) === '') {
+            return [];
+        }
+
+        $normalized = preg_replace('/\x{00a0}/u', ' ', trim($raw));
+        $parts = preg_split('/\s+(?:to|do)\s+/iu', $normalized);
+
+        return array_values(array_filter(array_map('trim', $parts), function ($p) {
+            return $p !== '';
+        }));
+    }
 
     /**
      * success response method.
@@ -55,8 +75,11 @@ class Controller extends BaseController
     {
         $columns = explode(',', $request->columns);
         $type = $request->file_type;
-        $dateRange = explode(' to ', $request->date_range);
-        if (count($dateRange) == 1) {
+        $dateRange = $this->splitFlatpickrRange($request->date_range);
+        if (count($dateRange) === 0) {
+            $today = Carbon::now()->toDateString();
+            $dateRange = [$today, $today];
+        } elseif (count($dateRange) === 1) {
             $dateRange[1] = $dateRange[0];
         }
 

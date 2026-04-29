@@ -1,5 +1,5 @@
 .decorator-font {
-  font-family: 'Kalam', cursive;
+  font-family: "Lexend Deca", var(--bs-font-sans-serif);
 }
 
 .heading-color {
@@ -35,21 +35,21 @@
   color: var(--bs-gray-600);
 }
 
-// section spacing
+// section spacing (Vujo: tied to --vujo-section-y in _root.scss)
 .section-spacing {
-  padding: 7.5rem 0;
+  padding: var(--vujo-section-y) 0;
 }
 
 .section-spacing-top {
-  padding: 7.5rem 0 0;
+  padding: var(--vujo-section-y) 0 0;
 }
 
 .section-spacing-bottom {
-  padding: 0 0 7.5rem;
+  padding: 0 0 var(--vujo-section-y);
 }
 
 .section-spacing-inner-pages {
-  padding: 5rem 0 7.5rem;
+  padding: calc(var(--vujo-section-y) * 0.65) 0 var(--vujo-section-y);
 }
 
 // font size

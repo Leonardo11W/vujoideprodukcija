@@ -354,7 +354,7 @@ return [
                 'label' => 'integration', // you know what label it is
                 'rules' => '', // validation rule of laravel
                 'class' => '', // any class for input
-                'value' => '1', // default value if you want
+                'value' => '0', // default: demo login off (admin login must not show demo block)
                 'help' => 'Paste the only the Measurement Id of Google Analytics stream.', // Help text for the input field.
             ],
             [

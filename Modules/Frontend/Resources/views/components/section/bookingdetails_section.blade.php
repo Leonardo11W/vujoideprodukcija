@@ -186,7 +186,7 @@
                     <div class="col-lg-3 col-md-6">
                         <h6 class="mb-1 fw-normal font-size-14">{{ __('frontend.date_and_time') }}</h6>
                         <span
-                            class="font-size-14">{{ \Carbon\Carbon::parse($booking->start_date_time)->format('d/m/Y \a\t h:i A') }}</span>
+                            class="font-size-14">{{ \Carbon\Carbon::parse($booking->start_date_time)->format('d/m/Y \a\t H:i') }}</span>
                     </div>
                     <div class="col-lg-3 col-md-6 mt-3 mt-md-0">
                         <h6 class="mb-1 fw-normal font-size-14">{{ __('frontend.specialist') }}</h6>

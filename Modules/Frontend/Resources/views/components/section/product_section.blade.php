@@ -1,6 +1,6 @@
 @props(['products'])
 
-<div class="product-section section-spacing-bottom">
+<div class="product-section section-spacing-bottom vujo-section vujo-product-section">
     <div class="container">
         <div class="section-title text-center mb-4">
             <span class="decorator-title decorator-font text-primary text-uppercase text-decoration-underline">{{__('frontend.online_store')}}</span>

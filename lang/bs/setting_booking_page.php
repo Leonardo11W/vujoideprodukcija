@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'lbl_name' => 'Booking Slot Duration',
+    'lbl_name' => 'Trajanje termina',
 ];

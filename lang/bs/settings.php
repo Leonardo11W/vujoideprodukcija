@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'title' => 'Settings',
-    'save_setting' => 'Setting Updated!',
-    'horizontal' => 'Horizontal',
-    'vertical' => 'Vertical',
-    'purge_cache' => 'Purge Cache',
+    'title' => 'Postavke',
+    'save_setting' => 'Postavke su ažurirane!',
+    'horizontal' => 'Horizontalno',
+    'vertical' => 'Vertikalno',
+    'purge_cache' => 'Očisti keš',
 ];

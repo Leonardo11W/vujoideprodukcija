@@ -1,6 +1,8 @@
 const mix = require("laravel-mix");
 const path = require('path')
 
+mix.disableNotifications();
+
 if (process.env.MIX_PUBLIC_PATH !== null && process.env.MIX_PUBLIC_PATH !== undefined && process.env.MIX_PUBLIC_PATH !== '') {
     mix.setPublicPath('public')
         .webpackConfig({

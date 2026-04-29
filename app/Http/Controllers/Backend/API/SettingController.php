@@ -169,7 +169,7 @@ class SettingController extends Controller
         $response['site_description'] = $settings['site_description'] ?? null;
         // Add locale language to the response
         $response['application_language'] =  setting('default_language') ?? app()->getLocale();
-        $response['is_demo_login'] = isset($settings['is_demo_login']) ? (($settings['is_demo_login'] != null) ? true : false ) : true;
+        $response['is_demo_login'] = isset($settings['is_demo_login']) && (string) $settings['is_demo_login'] === '1';
         $response['status'] = true;
 
         return response()->json($response);

@@ -1,0 +1,195 @@
+// Vujo premium: shell + global surfaces (salon / spa)
+// Relies on tokens in frezka-design-system/helper/_root.scss
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+// Header: airy bar, subtle separation
+.vujo-top-nav {
+  min-height: 4.25rem;
+  border-bottom: 1px solid var(--vujo-border-subtle);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+html[data-bs-theme="dark"] .vujo-top-nav {
+  background: rgba(22, 24, 28, 0.92);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.landing-header {
+  min-height: 3.5rem;
+}
+
+// Section rhythm for reusable wrappers
+.vujo-section {
+  padding-top: var(--vujo-section-y);
+  padding-bottom: var(--vujo-section-y);
+}
+
+.vujo-section--tight {
+  padding-top: var(--vujo-section-y-tight);
+  padding-bottom: var(--vujo-section-y-tight);
+}
+
+// Footer
+.vujo-site-footer .footer-box {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 3.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.vujo-site-footer .footer-menu a.nav-link {
+  padding: 0.35rem 0;
+  transition: color 0.2s ease, padding-inline-start 0.2s ease;
+}
+
+.vujo-site-footer .footer-menu a.nav-link:hover {
+  color: var(--bs-primary) !important;
+  padding-inline-start: 0.25rem;
+}
+
+// Shared card / surface (homepage + shop)
+.vujo-surface {
+  border-radius: var(--vujo-radius-md);
+  box-shadow: var(--vujo-shadow-card);
+  border: 1px solid var(--vujo-border-subtle);
+  background: var(--bs-body-bg);
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.vujo-surface--hover:hover {
+  box-shadow: var(--vujo-shadow-md);
+  transform: translateY(-2px);
+}
+
+// Product cards on listing / home
+.product-card-fixed,
+.product-card {
+  border-radius: var(--vujo-radius-lg) !important;
+  overflow: hidden;
+  box-shadow: var(--vujo-shadow-sm);
+  border: 1px solid var(--vujo-border-subtle);
+  transition: box-shadow 0.3s ease, transform 0.25s ease;
+}
+
+.product-card-fixed:hover,
+.product-card:hover {
+  box-shadow: var(--vujo-shadow-md);
+  transform: translateY(-3px);
+}
+
+.product-card .product-image img {
+  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+// Hero / banner
+.vujo-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 var(--vujo-radius-lg) var(--vujo-radius-lg);
+}
+
+.vujo-hero .main-banner-image {
+  object-fit: cover;
+  min-height: 220px;
+  max-height: min(70vh, 640px);
+  width: 100%;
+}
+
+// Quick booking CTA
+.vujo-quick-booking .book-appointment-box {
+  box-shadow: var(--vujo-shadow-md);
+  border: 1px solid rgba(168, 45, 134, 0.12);
+}
+
+// FAQ accordion polish
+.vujo-faq-block .accordion-item {
+  border: 1px solid var(--vujo-border-subtle) !important;
+  border-radius: var(--vujo-radius-md) !important;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+
+.vujo-faq-block .accordion-button {
+  font-weight: 500;
+  padding: 1rem 1.25rem;
+}
+
+.vujo-faq-block .accordion-body {
+  padding: 0 1.25rem 1.15rem;
+  color: var(--bs-body-color);
+}
+
+// Why choose grid cards
+.vujo-why-choose .choose-us-card {
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
+  border: 1px solid var(--vujo-border-subtle);
+  padding: 1.25rem;
+}
+
+.vujo-why-choose .choose-us-card:hover {
+  box-shadow: var(--vujo-shadow-sm);
+  transform: translateY(-2px);
+}
+
+// Video / top experts block
+.vujo-video-feature .video-wrapper-section,
+.vujo-video-feature .video-wrapper {
+  border-radius: var(--vujo-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--vujo-shadow-md);
+}
+
+// Offcanvas mobile nav
+.mobile-offcanvas .offcanvas-header {
+  border-bottom: 1px solid var(--vujo-border-subtle);
+  padding: 1rem 1.25rem;
+}
+
+// Page titles on inner pages (when using default wrappers)
+.wrapper .text-heading,
+.content-inner h1,
+.content-inner h2 {
+  letter-spacing: -0.02em;
+}
+
+// Inner marketing / listing pages: subtle page canvas
+.vujo-page-inner {
+  position: relative;
+}
+
+.vujo-shop-page .section-title,
+.vujo-category-page .section-title,
+.vujo-service-page .section-title {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--vujo-border-subtle);
+}
+
+.vujo-shop-page .shop-sidebar .widget {
+  border-radius: var(--vujo-radius-md);
+  border: 1px solid var(--vujo-border-subtle);
+  padding: 1.25rem;
+  box-shadow: var(--vujo-shadow-sm);
+  background: var(--bs-body-bg);
+}
+
+.vujo-support-page h4,
+.vujo-faq-block .container > .section-title {
+  max-width: 48rem;
+  margin-inline: auto;
+}
+
+// Search / filter fields on category & shop
+.vujo-category-page .input-group,
+.vujo-shop-page .input-group,
+.vujo-shop-page .form-select {
+  border-radius: var(--vujo-radius-md);
+}

@@ -72,7 +72,7 @@
 </div>
 <div class="d-flex justify-content-between align-items-center mt-3">
   <p class="m-0">{{ $t('quick_booking.lbl_time') }} :</p>
-  <h6 class="m-0"><span>{{ moment(booking.start_date_time).format('hh:mm A') }}</span></h6>
+  <h6 class="m-0"><span>{{ moment(booking.start_date_time).format('HH:mm') }}</span></h6>
 </div>
                     <div class="iq-card bg-soft-primary text-body p-3 mt-4 mb-0 shadow-none">
                         <div class="iq-card-body">

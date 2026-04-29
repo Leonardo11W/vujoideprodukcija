@@ -39,7 +39,7 @@ class ConfigServiceProvider extends ServiceProvider
                     $mail_encryption = $this->getSetting($settings, 'mail_encryption');
                     $mail_username = $this->getSetting($settings, 'mail_username');
                     $mail_password = $this->getSetting($settings, 'mail_password');
-                    $local = $this->getSetting($settings, 'default_language');
+                    $local = $this->getSetting($settings, 'default_language') ?: 'hr';
                     $timezone = $this->getSetting($settings, 'default_time_zone');
                     if (isset($app_name)) {
                         Config::set('app.name', $app_name);
@@ -68,9 +68,7 @@ class ConfigServiceProvider extends ServiceProvider
                     if (isset($mail_password)) {
                         Config::set('mail.password', $mail_password);
                     }
-                    if (isset($local)) {
-                        Config::set('app.locale', $local);
-                    }
+                    Config::set('app.locale', $local);
                     if (isset($timezone) && !empty($timezone)) {
                         Config::set('app.timezone', $timezone);
                         @date_default_timezone_set($timezone);

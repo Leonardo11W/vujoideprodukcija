@@ -1,46 +1,46 @@
 <?php
 $notifications_count = optional(auth()->user())->unreadNotifications->count();
+$canAccessSidebar = auth()->check() && (auth()->user()->can('menu_builder_sidebar') || auth()->user()->hasRole('manager') || auth()->user()->hasRole('employee'));
+$hmenu = new \App\Http\Middleware\GenerateMenus();
+$hmenu = $hmenu->handle('hmenu', 'horizontal', 'H_ARRAY_MENU');
+$hasVisibleHeaderMenu = auth()->check() && (auth()->user()->can('menu_builder_header') || auth()->user()->hasRole('manager') || auth()->user()->hasRole('employee') || $hmenu->roots()->count() > 0);
 ?>
-<nav class="pr-hide nav navbar navbar-expand-xl navbar-light iq-navbar header-hover-menu left-border {{ !empty(getCustomizationSetting('navbar_show')) ? getCustomizationSetting('navbar_show') : '' }} {{ getCustomizationSetting('header_navbar') }}">
-  <div class="container-fluid navbar-inner">
-    @can('view_dashboard')
-    <a href="{{route('backend.dashboard')}}" class="navbar-brand">
-      <div class="logo-main">
-        <div class="logo-mini d-none">
-          <img src="{{asset(setting('mini_logo'))}}" height="30" alt="{{ app_name() }}">
+<nav class="pr-hide nav navbar navbar-expand-xl navbar-light iq-navbar header-hover-menu left-border admin-header-toolbar {{ !empty(getCustomizationSetting('navbar_show')) ? getCustomizationSetting('navbar_show') : '' }} {{ getCustomizationSetting('header_navbar') }}">
+  <div class="container-fluid navbar-inner {{ $canAccessSidebar ? 'justify-content-end' : 'justify-content-between' }} flex-wrap">
+    @if (!$canAccessSidebar)
+      @can('view_dashboard')
+      <a href="{{route('backend.dashboard')}}" class="navbar-brand">
+        <div class="logo-main">
+          <div class="logo-mini d-none">
+            <img src="{{asset(setting('mini_logo'))}}" height="30" alt="{{ app_name() }}">
+          </div>
+          <div class="logo-normal">
+            <img src="{{asset(setting('logo'))}}" height="30" alt="{{ app_name() }}">
+          </div>
         </div>
-        <div class="logo-normal">
-          <img src="{{asset(setting('logo'))}}" height="30" alt="{{ app_name() }}">
-          {{-- <h4 class="logo-title d-none d-sm-block">{{app_name()}}</h4> --}}
+      </a>
+      @endcan
+      <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
+        <i class="icon d-flex">
+          <svg width="20px" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
+          </svg>
+        </i>
+      </div>
+      @if ($hasVisibleHeaderMenu)
+      <div class="d-flex align-items-center justify-content-between product-offcanvas">
+        <div class="offcanvas offcanvas-end shadow-none iq-product-menu-responsive" tabindex="-1"
+          id="offcanvasBottom">
+          <div class="offcanvas-body">
+            <ul class="iq-nav-menu list-unstyled">
+              @include(('vendor.laravel-menu.custom-menu-items'), ['items' => $hmenu->roots()])
+            </ul>
+          </div>
         </div>
       </div>
-    </a>
-    @endcan
-    <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
-      <i class="icon d-flex">
-        <svg width="20px" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
-        </svg>
-      </i>
-    </div>
-    @php
-    $hmenu = new \App\Http\Middleware\GenerateMenus();
-    $hmenu = $hmenu->handle('hmenu', 'horizontal', 'H_ARRAY_MENU');
-    $hasVisibleHeaderMenu = auth()->check() && (auth()->user()->can('menu_builder_header') || auth()->user()->hasRole('manager') || auth()->user()->hasRole('employee') || $hmenu->roots()->count() > 0);
-    @endphp
-    @if($hasVisibleHeaderMenu)
-    <div class="d-flex align-items-center justify-content-between product-offcanvas">
-      <div class="offcanvas offcanvas-end shadow-none iq-product-menu-responsive" tabindex="-1"
-        id="offcanvasBottom">
-        <div class="offcanvas-body">
-          <ul class="iq-nav-menu list-unstyled">
-            @include(('vendor.laravel-menu.custom-menu-items'), ['items' => $hmenu->roots()])
-          </ul>
-        </div>
-      </div>
-    </div>
+      @endif
     @endif
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center ms-auto">
       <button id="navbar-toggle" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon">
           <span class="navbar-toggler-bar bar1 mt-1"></span>
@@ -49,7 +49,7 @@ $notifications_count = optional(auth()->user())->unreadNotifications->count();
         </span>
       </button>
     </div>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
       <ul class="mb-2 navbar-nav ms-auto align-items-center navbar-list mb-lg-0">
         <li class="nav-item dropdown me-0 me-xl-3">
           <div class="d-flex align-items-center mr-2 iq-font-style" role="group" aria-label="First group">
@@ -158,12 +158,6 @@ $notifications_count = optional(auth()->user())->unreadNotifications->count();
           @endif
         </li>
         @endif
-        <li class="nav-item theme-scheme-dropdown dropdown iq-dropdown">
-          <a href="javascript:void(0)" class="nav-link d-flex align-items-center change-mode" data-change-mode="{{ (auth()->user()->user_setting['theme_scheme'] ?? 'light') ==  'dark' ? 'light' : 'dark' }}" id="mode-drop" style="color: inherit !important;">
-            <i class="fa-solid fa-sun mode-icons light-mode"></i>
-            <i class="fa-solid fa-moon mode-icons dark-mode"></i>
-          </a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color: inherit !important;">
             <i class="fa-solid fa-globe me-1"></i>{{strtoupper(App::getLocale())}}
@@ -238,31 +232,6 @@ $notifications_count = optional(auth()->user())->unreadNotifications->count();
 @push('after-scripts')
 <script type="text/javascript">
   $(document).ready(function() {
-    $('.change-mode').on('click', function() {
-      const value = $(this).data('change-mode')
-      $(this).data('change-mode', value == 'dark' ? 'light' : 'dark')
-      fetch("{{ route('backend.setUserSetting') }}", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-          },
-          body: JSON.stringify({
-            settings: {
-              theme_scheme: value
-            }
-          })
-        })
-        .then((res) => res.json())
-        .then((data) => {})
-      if (value !== 'dark') {
-        $('body').removeClass('dark');
-      } else {
-        $('body').addClass('dark');
-      }
-    });
-
     $('input[name="theme_font_size"]').on('change', function() {
       const font = $('[name="theme_font_size"]').map(function() {
         return $(this).attr('value')

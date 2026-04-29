@@ -88,7 +88,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'bs'),
 
     /*
     |--------------------------------------------------------------------------
@@ -101,7 +101,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'bs'),
 
     /*
     |--------------------------------------------------------------------------
@@ -129,6 +129,7 @@ return [
     'available_locales' => [
         'bs' => 'Bosanski (BS)',
         'hr' => 'Hrvatski (HR)',
+        'sr' => 'Srpski (SR)',
         'ar' => 'العربی(AR)',
         'en' => 'English (EN)',
         'el' => 'Greek (EL)',

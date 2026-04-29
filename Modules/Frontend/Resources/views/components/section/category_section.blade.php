@@ -1,7 +1,7 @@
 @props(['categories' => []])
 
 @if (count($categories))
-    <div class="category-section-wrapper section-spacing">
+    <div class="category-section-wrapper section-spacing vujo-section vujo-category-section">
         <div class="container">
             <div class="section-title text-center">
                 <span

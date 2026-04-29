@@ -80,14 +80,18 @@ class BackendController extends Controller
         $today = Carbon::today();
         $action = $request->action ?? 'reset';
         if (isset($request->date_range) && $action !== 'reset') {
-            $dates = explode(' to ', $request->date_range);
-            if (count($dates) == 2) { // When both start and end dates are provided
-                $startDate = $dates[0] ?? date('Y-m-d');
-                $endDate = $dates[1] ?? date('Y-m-d');
-            } elseif (count($dates) == 1) { // When only a single date is provided
-                $startDate = $dates[0] ?? date('Y-m-d');
-                $endDate = $startDate; // Use the same date for both start and end
-            } else { // Default case, fallback to last 10 days
+            $parts = $this->splitFlatpickrRange($request->date_range);
+            try {
+                if (count($parts) >= 2) {
+                    $startDate = Carbon::parse($parts[0])->toDateString();
+                    $endDate = Carbon::parse($parts[1])->toDateString();
+                } elseif (count($parts) === 1) {
+                    $startDate = Carbon::parse($parts[0])->toDateString();
+                    $endDate = $startDate;
+                } else {
+                    throw new \InvalidArgumentException('empty date range');
+                }
+            } catch (\Throwable $e) {
                 $startDate = Carbon::now()->subDays(10)->toDateString();
                 $endDate = Carbon::now()->toDateString();
             }
@@ -132,6 +136,8 @@ class BackendController extends Controller
             'employee_commission' => \Currency::format(0),
             'manager_commission' => \Currency::format(0),
             'payout_amount' => \Currency::format(0),
+            'cancelled_bookings_count' => 0,
+            'avg_revenue_per_booking' => \Currency::format(0),
         ];
 
         $selectedBranchId = request()->selected_session_branch_id ?? session('selected_branch');
@@ -166,6 +172,31 @@ class BackendController extends Controller
                     });
             });
         }
+
+        $cancelledBookingsQuery = Booking::where('status', 'cancelled')
+            ->whereBetween('start_date_time', [$startDateTime, $endDateTime]);
+
+        if ($selectedBranchId) {
+            $cancelledBookingsQuery->where('branch_id', $selectedBranchId);
+        } elseif ($applyBranchScope) {
+            $cancelledBookingsQuery->branch();
+        }
+
+        if ($filterByEmployee && $employeeId) {
+            $cancelledBookingsQuery->where(function ($query) use ($employeeId) {
+                $query->whereHas('bookingService', function ($q) use ($employeeId) {
+                    $q->where('employee_id', $employeeId);
+                })
+                    ->orWhereHas('bookingPackages', function ($q) use ($employeeId) {
+                        $q->where('employee_id', $employeeId);
+                    })
+                    ->orWhereHas('products', function ($q) use ($employeeId) {
+                        $q->where('employee_id', $employeeId);
+                    });
+            });
+        }
+
+        $data['cancelled_bookings_count'] = $cancelledBookingsQuery->count();
 
         // My Work: shows only manager's own bookings across all branches
 
@@ -367,6 +398,9 @@ class BackendController extends Controller
         $data['total_revenue'] = \Currency::format($totalRevenueAmount);
         $data['total_discount_amount'] = \Currency::format($totalDiscountAmount);
 
+        $data['avg_revenue_per_booking'] = \Currency::format(
+            $data['total_appointments'] > 0 ? $totalRevenueAmount / $data['total_appointments'] : 0
+        );
 
         // Calculate total staff earning (commission + tips)
         $totalCommission = 0;

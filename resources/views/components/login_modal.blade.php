@@ -10,8 +10,8 @@
                   <a href="#">
                     <img src="{{asset('img/logo/logo.png')}}" class="img-fluid auth-logo" alt="logo">
                   </a>
-                  <h5 class="mb-1 register-title">Welcome Back!</h5>
-                  <p class="font-size-14 mb-5">You Have Been Missed For Long Time</p>
+                  <h5 class="mb-1 register-title">{{ __('frontend.welcome_back') }}</h5>
+                  <p class="font-size-14 mb-5">{{ __('frontend.you_have_been_missed_for_long_time') }}</p>
                 </div>
                 <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate autocomplete="off">
                   {{-- This route now points to AuthController@loginUser for frontend users --}}
@@ -21,22 +21,22 @@
                   <div class="row gy-4">
                     <div class="col-lg-12">
                       <div class="form-group">
-                        <label for="modal_login_email" class="form-label fw-medium">Email<span class="text-danger">*</span></label>
+                        <label for="modal_login_email" class="form-label fw-medium">{{ __('frontend.email') }}<span class="text-danger">*</span></label>
                         <div class="input-group custom-input-group">
-                          <input type="email" name="email" value="john@gmail.com" id="modal_login_email" class="form-control" placeholder="demo@gmail.com" required />
+                          <input type="email" name="email" value="" id="modal_login_email" class="form-control" placeholder="{{ __('frontend.enter_email') }}" required />
                           <span class="input-group-text"><i class="ph ph-envelope-simple"></i></span>
                         </div>
-                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                        <div class="invalid-feedback">{{ __('frontend.please_enter_a_valid_email_address') }}</div>
                       </div>
                     </div>
                     <div class="col-lg-12">
                       <div class="form-group">
-                        <label for="modal_login_password" class="form-label fw-medium">Password<span class="text-danger">*</span></label>
+                        <label for="modal_login_password" class="form-label fw-medium">{{ __('frontend.password') }}<span class="text-danger">*</span></label>
                         <div class="input-group custom-input-group">
-                          <input type="password" name="password" value="12345678" id="modal_login_password" class="form-control" placeholder="eg-#123@Abc\" required />
+                          <input type="password" name="password" value="" id="modal_login_password" class="form-control" placeholder="{{ __('frontend.password') }}" required />
                           <span class="input-group-text" id="modal_togglePassword"><i class="ph ph-eye-slash"></i></span>
                         </div>
-                        <div class="invalid-feedback">Please enter your password.</div>
+                        <div class="invalid-feedback">{{ __('frontend.please_enter_your_password') }}</div>
                       </div>
                     </div>
                   </div>
@@ -44,20 +44,20 @@
                     <div>
                       <label for="modal_login_remember" class="d-inline-flex align-items-center gap-2">
                         <input type="checkbox" class="form-check-input m-0" id="modal_login_remember" name="remember">
-                        <span class="font-size-14">Remember me</span>
+                        <span class="font-size-14">{{ __('frontend.remember_me') }}</span>
                       </label>
                     </div>
-                    <a href="{{ route('password.request') }}" class="fw-semibold font-size-14 fst-italic">Forgot Password?</a>
+                    <a href="{{ route('password.request') }}" class="fw-semibold font-size-14 fst-italic">{{ __('frontend.forgot_password') }}</a>
                   </div>
                   <div class="d-flex justify-content-between gap-3 mt-5 auth-btn">
-                    <button type="submit" id="modal-login-button" class="btn btn-secondary flex-grow-1">Sign In</button>
+                    <button type="submit" id="modal-login-button" class="btn btn-secondary flex-grow-1">{{ __('frontend.sign_in') }}</button>
                     <a href="{{ route('auth.google') }}" class="btn px-3 bg-gray-800" onclick="handleModalGoogleLogin(event)">
                       <img src="{{asset('img/frontend/google-icon.png')}}" alt="icon" class="img-fluid">
                     </a>
                   </div>
                   <div class="d-flex justify-content-center flex-wrap gap-1 mt-3">
-                    <span class="font-size-14 text-body">Not a member?</span>
-                    <a href="{{ route('signup') }}" class="text-primary font-size-14 fw-medium text-decoration-underline">Sign Up</a>
+                    <span class="font-size-14 text-body">{{ __('frontend.not_a_member') }}</span>
+                    <a href="{{ route('signup') }}" class="text-primary font-size-14 fw-medium text-decoration-underline">{{ __('frontend.sign_up') }}</a>
                   </div>
                 </form>
               </div>

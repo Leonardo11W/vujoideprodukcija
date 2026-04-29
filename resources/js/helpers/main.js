@@ -18,11 +18,16 @@ export const InitApp = (component) => {
      *
      * !Usage : $t('{key_name}')
      */
+    const rawLang = (typeof document !== "undefined" && document.documentElement && document.documentElement.lang)
+        ? document.documentElement.lang
+        : "hr";
+    const appLocale = rawLang.length >= 2 ? rawLang.toLowerCase().split("-")[0] : "hr";
     const i18n = createI18n({
         legacy: false,
-        locale: "en",
+        locale: appLocale,
+        fallbackLocale: "en",
         globalInjection: true,
-        messages: {en: window.localMessagesUpdate} || {},
+        messages: { [appLocale]: window.localMessagesUpdate || {} },
     });
 
     window.i18n = i18n

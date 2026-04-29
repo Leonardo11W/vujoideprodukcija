@@ -956,7 +956,7 @@ class WalletController extends Controller
 
         return DataTables::of($transactions)
             ->addColumn('date_time', function ($row) {
-                return \Carbon\Carbon::parse($row->created_at)->format('d/m/Y, h:i A');
+                return \Carbon\Carbon::parse($row->created_at)->format('d/m/Y, H:i');
             })
             ->addColumn('transaction_type', function ($row) {
                 $data = json_decode($row->activity_data, true);

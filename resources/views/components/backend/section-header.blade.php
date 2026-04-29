@@ -1,6 +1,6 @@
 @props(["toolbar"=>"", "subtitle"=>""])
 
-<div class="d-flex justify-content-between flex-column flex-md-row gap-3">
+<div class="d-flex justify-content-between flex-column flex-md-row gap-3 admin-section-header">
     <div>
       {{ $slot }}
     </div>

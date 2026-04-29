@@ -2,7 +2,7 @@
 
 @section('content')
     <x-breadcrumb title="{{ __('frontend.support') }}" />
-    <div class="about-us-section section-spacing-inner-pages">
+    <div class="about-us-section section-spacing-inner-pages vujo-page-inner vujo-support-page">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">

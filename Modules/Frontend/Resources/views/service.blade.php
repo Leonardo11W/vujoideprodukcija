@@ -3,7 +3,7 @@
 
 @section('content')
     <x-breadcrumb title="{{ __('frontend.services') }}" />
-    <div class="section-spacing-inner-pages">
+    <div class="section-spacing-inner-pages vujo-page-inner vujo-service-page">
         <div class="container">
             <x-service_section :categories="$categories" :category="$category" :allServicesCount="$allServicesCount" id="service-section" />
         </div>

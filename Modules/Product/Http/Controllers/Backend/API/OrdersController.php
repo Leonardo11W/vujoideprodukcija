@@ -248,7 +248,7 @@ class OrdersController extends Controller
                     'user_id' => $order->user_id,
                     'user_name' => optional($order->user)->first_name . ' ' . optional($order->user)->last_name ?? default_user_name(),
                     'order_date' => $order->created_at->format('d/m/Y'),
-                    'order_time' => $order->created_at->format('h:i A'),
+                    'order_time' => $order->created_at->format('H:i'),
                 ];
 
                 $notify_type = 'order_placed';

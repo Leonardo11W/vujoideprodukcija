@@ -15,12 +15,7 @@ class localization
      */
     public function handle($request, Closure $next)
     {
-        // Check header request and determine localizaton
-        $sessionLocal = session()->get('locale') ? session()->get('locale') : 'en';
-
-        $local = ($request->hasHeader('frezka-localization')) ? $request->header('frezka-localization') : $sessionLocal;
-        // set laravel localization
-        app()->setLocale($local);
+        app()->setLocale(config('app.locale', 'bs'));
 
         // continue request
         return $next($request);

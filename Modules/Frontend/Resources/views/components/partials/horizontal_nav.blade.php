@@ -102,7 +102,7 @@ $timezone = setting('default_time_zone') ?? setting('time_zone') ?? 'UTC';
                             @endif
                             <div class="position-relative cursor-pointer" onclick="selectBranch('{{ $branch['id'] }}')">
                                 <span
-                                    class="badge {{ $isOpen ? 'bg-success' : 'bg-danger' }} text-white">{{ $isOpen ? 'Open' : 'Closed' }}</span>
+                                    class="badge {{ $isOpen ? 'bg-success' : 'bg-danger' }} text-white">{{ $isOpen ? __('frontend.open') : __('frontend.closed') }}</span>
                                 <img src="{{ $branch['branch_image'] }}" 
                                     onerror="this.src='{{ asset('img/frontend/branch-image.jpg') }}'"
                                     class="card-img rounded-start"
@@ -258,7 +258,7 @@ $timezone = setting('default_time_zone') ?? setting('time_zone') ?? 'UTC';
                                 
                                 // Show success message
                                 if (window.toastr) {
-                                    toastr.success('Branch selected successfully!');
+                                    toastr.success('{{ __('frontend.branch_selected_successfully') }}');
                                 }
                                 
                                 // Auto-refresh the page after a short delay

@@ -14,11 +14,9 @@ class SetLocale
      */
     public function handle($request, Closure $next)
     {
-        if (! session()->has('locale')) {
-            session()->put('locale', config('app.locale'));
-        }
-
-        app()->setLocale(session()->get('locale'));
+        $locale = config('app.locale', 'bs');
+        session()->put('locale', $locale);
+        app()->setLocale($locale);
 
         return $next($request);
     }

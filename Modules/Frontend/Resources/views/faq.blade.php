@@ -5,7 +5,7 @@
 
 @section('content')
 <x-breadcrumb title="{{ __('frontend.faq') }}" />
-<div class="faq-section section-spacing">
+<div class="faq-section section-spacing vujo-faq-block vujo-page-inner">
     <div class="container">
         <div class="faq-wrapper">
             <div class="accordion" id="faqparent">

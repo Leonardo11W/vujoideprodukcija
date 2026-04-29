@@ -3,10 +3,10 @@
     $appleStoreurl = setting('customer_app_app_store') ?? '';
 
     $footerLinks = [
-        'about' => [['label' => 'Contact Us', 'url' => route('contact')], ['label' => 'FAQs', 'url' => route('faq')]],
+        'about' => [['label' => __('frontend.contact_us'), 'url' => route('contact')], ['label' => __('frontend.faq'), 'url' => route('faq')]],
         'app_links' => [
-            ['img' => asset('img/logo/favicon/android-btn.png'), 'url' => $playStoreurl, 'alt' => 'play store'],
-            ['img' => asset('img/logo/favicon/ios-btn.png'), 'url' => $appleStoreurl, 'alt' => 'apple store'],
+            ['img' => asset('img/logo/favicon/android-btn.png'), 'url' => $playStoreurl, 'alt' => __('frontend.google_play')],
+            ['img' => asset('img/logo/favicon/ios-btn.png'), 'url' => $appleStoreurl, 'alt' => __('frontend.app_store')],
         ],
     ];
     $companyName = setting('app_name') ?? '';
@@ -40,7 +40,7 @@
     }
 @endphp
 
-<footer>
+<footer class="vujo-site-footer">
     <div class="footer-box">
         <div class="container">
             <div class="row gy-5">

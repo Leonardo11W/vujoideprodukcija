@@ -347,8 +347,8 @@ if ($hours && $hours->is_holiday != 1 && $hours->start_time && $hours->end_time)
                                                             style="font-size: 11px;">{{ __('frontend.closed') }}</span>
                                                     @else
                                                         <span class="text-dark font-weight-500" style="font-size: 13px;">
-                                                            {{ date('h:i A', strtotime($hour->start_time)) }} -
-                                                            {{ date('h:i A', strtotime($hour->end_time)) }}
+                                                            {{ date('H:i', strtotime($hour->start_time)) }} -
+                                                            {{ date('H:i', strtotime($hour->end_time)) }}
                                                         </span>
                                                     @endif
                                                 </div>
@@ -368,8 +368,8 @@ if ($hours && $hours->is_holiday != 1 && $hours->start_time && $hours->end_time)
                                                             {{ __('frontend.break') }}:
                                                             @foreach ($breaks as $break)
                                                                 @if (!empty($break['start_break']) && !empty($break['end_break']))
-                                                                    {{ date('h:i A', strtotime($break['start_break'])) }} -
-                                                                    {{ date('h:i A', strtotime($break['end_break'])) }}
+                                                                    {{ date('H:i', strtotime($break['start_break'])) }} -
+                                                                    {{ date('H:i', strtotime($break['end_break'])) }}
                                                                     @if (!$loop->last)
                                                                         ,
                                                                     @endif

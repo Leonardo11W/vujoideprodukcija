@@ -21,7 +21,7 @@
         }
     }
     $enableDarkMode = ($headerMenuSettingDecoded && isset($headerMenuSettingDecoded['enable_darknight_mode'])) ? $headerMenuSettingDecoded['enable_darknight_mode'] == 1 : true;
-    $enableLanguage = ($headerMenuSettingDecoded && isset($headerMenuSettingDecoded['enable_language'])) ? $headerMenuSettingDecoded['enable_language'] == 1 : true;
+    $enableLanguage = false;
 @endphp
 
 @if ($isHeaderEnabled)
@@ -38,9 +38,7 @@
                 </marquee>
             </div>
         @endif
-            
-        </div>
-        <nav class="nav navbar navbar-expand-xl navbar-light iq-navbar header-hover-menu py-xl-0">
+        <nav class="nav navbar navbar-expand-xl navbar-light iq-navbar header-hover-menu vujo-top-nav py-xl-0">
             <div class="container-fluid navbar-inner">
                 <div class="d-flex align-items-center justify-content-between w-100 landing-header">
                     <div class="d-flex gap-2 gap-sm-3 align-items-center">
@@ -379,7 +377,7 @@
                                                                                 <small
                                                                                     class="text-body">{{ $notification->created_at->format('d/m/Y') }}</small>
                                                                                 <small
-                                                                                    class="text-body">{{ $notification->created_at->format('h:i A') }}</small>
+                                                                                    class="text-body">{{ $notification->created_at->format('H:i') }}</small>
                                                                             </div>
                                                                         </div>
                                                                     </div>

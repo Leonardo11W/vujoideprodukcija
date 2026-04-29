@@ -391,11 +391,12 @@ class ProductsController extends Controller
         $product->discount_value = $request->discount_value ?? 0;
         $product->discount_type = $request->discount_type;
 
-        if ($request->date_range != null) {
-            if (Str::contains($request->date_range, 'to')) {
-                $date_var = explode(' to ', $request->date_range);
-            } else {
+        if ($request->date_range != null && trim((string) $request->date_range) !== '') {
+            $date_var = $this->splitFlatpickrRange($request->date_range);
+            if (count($date_var) === 0) {
                 $date_var = [date('d-m-Y'), date('d-m-Y')];
+            } elseif (count($date_var) === 1) {
+                $date_var[] = $date_var[0];
             }
             $product->discount_start_date = strtotime($date_var[0]);
             $product->discount_end_date = strtotime($date_var[1] . ' 23:59:59');
@@ -671,11 +672,12 @@ class ProductsController extends Controller
         $product->discount_value = $request->discount_value ?? 0;
         $product->discount_type = $request->discount_type;
 
-        if ($request->date_range != null) {
-            if (Str::contains($request->date_range, 'to')) {
-                $date_var = explode(' to ', $request->date_range);
-            } else {
+        if ($request->date_range != null && trim((string) $request->date_range) !== '') {
+            $date_var = $this->splitFlatpickrRange($request->date_range);
+            if (count($date_var) === 0) {
                 $date_var = [date('d-m-Y'), date('d-m-Y')];
+            } elseif (count($date_var) === 1) {
+                $date_var[] = $date_var[0];
             }
             $product->discount_start_date = strtotime($date_var[0]);
             $product->discount_end_date = strtotime($date_var[1] . ' 23:59:59');

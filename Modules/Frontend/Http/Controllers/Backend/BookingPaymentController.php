@@ -363,7 +363,6 @@ class BookingPaymentController extends Controller
             // Build services array as expected by BookingTrait (service_id, service_price, employee_id, start_date_time)
             $employeeId = $request->input('employee_id');
             $services = [];
-            // Format date and time as expected: 'd/m/Y' and 'h:i A'
             $date = $request->input('date');
             $time = $request->input('time');
             if ($date && preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
@@ -372,13 +371,12 @@ class BookingPaymentController extends Controller
             }
             if ($time && preg_match('/^\d{2}(:\d{2}){1,2}$/', $time)) {
                 $timeObj = \Carbon\Carbon::createFromFormat(strlen($time) === 8 ? 'H:i:s' : 'H:i', $time);
-                $time = $timeObj->format('h:i A');
+                $time = $timeObj->format('H:i');
             }
-            // Build start_date_time for each service
             $startDateTime = null;
             if ($date && $time) {
                 try {
-                    $startDateTime = \Carbon\Carbon::createFromFormat('d/m/Y h:i A', $date . ' ' . $time)->format('Y-m-d H:i:s');
+                    $startDateTime = parseDmyDateTimeString($date, $time)->format('Y-m-d H:i:s');
                 } catch (\Exception $e) {
                     $startDateTime = null;
                 }
@@ -659,7 +657,6 @@ class BookingPaymentController extends Controller
         // Build services array as expected by BookingTrait (service_id, service_price, employee_id, start_date_time)
         $employeeId = $request->input('employee_id');
         $services = [];
-        // Format date and time as expected: 'd/m/Y' and 'h:i A'
         $date = $request->input('date');
         $time = $request->input('time');
         if ($date && preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
@@ -668,13 +665,12 @@ class BookingPaymentController extends Controller
         }
         if ($time && preg_match('/^\d{2}(:\d{2}){1,2}$/', $time)) {
             $timeObj = \Carbon\Carbon::createFromFormat(strlen($time) === 8 ? 'H:i:s' : 'H:i', $time);
-            $time = $timeObj->format('h:i A');
+            $time = $timeObj->format('H:i');
         }
-        // Build start_date_time for each service
         $startDateTime = null;
         if ($date && $time) {
             try {
-                $startDateTime = \Carbon\Carbon::createFromFormat('d/m/Y h:i A', $date . ' ' . $time)->format('Y-m-d H:i:s');
+                $startDateTime = parseDmyDateTimeString($date, $time)->format('Y-m-d H:i:s');
             } catch (\Exception $e) {
                 $startDateTime = null;
             }
@@ -941,7 +937,6 @@ class BookingPaymentController extends Controller
             $employeeId = $request->input('employee_id');
             $services = [];
 
-            // Format date and time as expected: 'd/m/Y' and 'h:i A'
             $date = $request->input('date');
             $time = $request->input('time');
 
@@ -952,14 +947,13 @@ class BookingPaymentController extends Controller
 
             if ($time && preg_match('/^\d{2}(:\d{2}){1,2}$/', $time)) {
                 $timeObj = \Carbon\Carbon::createFromFormat(strlen($time) === 8 ? 'H:i:s' : 'H:i', $time);
-                $time = $timeObj->format('h:i A');
+                $time = $timeObj->format('H:i');
             }
 
-            // Build start_date_time for each service
             $startDateTime = null;
             if ($date && $time) {
                 try {
-                    $startDateTime = \Carbon\Carbon::createFromFormat('d/m/Y h:i A', $date . ' ' . $time)->format('Y-m-d H:i:s');
+                    $startDateTime = parseDmyDateTimeString($date, $time)->format('Y-m-d H:i:s');
                 } catch (\Exception $e) {
                     $startDateTime = null;
                 }

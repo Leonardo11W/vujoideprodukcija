@@ -194,6 +194,7 @@ import { BRANCH_LIST } from '@/vue/constants/branch'
 import { useField, useForm, useFieldArray } from 'vee-validate'
 import InputField from '@/vue/components/form-elements/InputField.vue'
 import FlatPickr from 'vue-flatpickr-component'
+import { Croatian } from 'flatpickr/dist/l10n/hr.js'
 import { useModuleId, useRequest, useOnOffcanvasHide } from '@/helpers/hooks/useCrudOpration'
 import * as yup from 'yup'
 import { readFile } from '@/helpers/utilities'
@@ -224,6 +225,7 @@ const config = ref({
   static: true,
   mode: 'range',
   minDate: new Date(),
+  locale: Croatian
 })
 
 // Edit Form Or Create Form

@@ -230,7 +230,7 @@
                     </span>
                     <span class="text-muted">
                       <i class="ph ph-clock"></i>
-                      {{ $booking->start_date_time ? \Carbon\Carbon::parse($booking->start_date_time)->format('h:i A') : '--' }}
+                      {{ $booking->start_date_time ? \Carbon\Carbon::parse($booking->start_date_time)->format('H:i') : '--' }}
                     </span>
                     <span class="badge bg-{{ $booking->status == 'completed' ? 'success' : ($booking->status == 'cancelled' ? 'danger' : 'warning') }}">
                       {{ $data['bookingStatuses'][$booking->status] ?? ucfirst(str_replace('_', ' ', $booking->status)) }}

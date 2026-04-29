@@ -43,7 +43,9 @@ import { useRequest } from '@/helpers/hooks/useCrudOpration'
 import { useQuickBooking } from '../../store/quick-booking'
 import { SLOT_TIME_LIST, HOLIDAY_SLOT_LIST } from '@/vue/constants/quick_booking'
 import flatPickr from 'vue-flatpickr-component'
+import { Croatian } from 'flatpickr/dist/l10n/hr.js'
 import * as moment from 'moment'
+import 'moment/locale/hr'
 
 const props = defineProps({
   wizardNext: { default: '', type: [String, Number] },
@@ -63,11 +65,14 @@ const isHoliday = ref(false)
 const store = useQuickBooking()
 const { listingRequest } = useRequest()
 
+moment.locale('hr')
+
 const config = ref({
   inline: true,
   dateFormat: 'Y-m-d',
   minDate: 'today',
-  disable: []  
+  disable: [],
+  locale: Croatian
 })
 
 

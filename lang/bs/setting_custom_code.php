@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'lbl_css_name' => 'Custom Css Code (custom_css_block)',
-    'lbl_js_name' => 'Custom Js Code (custom_js_block)',
+    'lbl_css_name' => 'Prilagođeni CSS kod (custom_css_block)',
+    'lbl_js_name' => 'Prilagođeni JS kod (custom_js_block)',
 ];

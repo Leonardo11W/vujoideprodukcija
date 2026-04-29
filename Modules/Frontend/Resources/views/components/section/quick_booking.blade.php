@@ -1,7 +1,8 @@
+<section class="vujo-section vujo-quick-booking">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="book-appointment-box bg-purple rounded px-5 py-4">
+                <div class="book-appointment-box bg-purple rounded px-4 px-md-5 py-4 vujo-surface">
                     <div class="mt-4"></div>
                     <h5 class="mb-4">{{ __('frontend.quick_book_appointment') }}</h5>
                     <div class="row align-items-center book-appointment-content gy-4">
@@ -78,8 +79,7 @@
             </div>
         </div>
     </div>
-
-
+</section>
 
     <!-- Add this hidden input just before the script tag -->
     <input type="hidden" id="quick-booking-service-id" name="quick_booking_service_id" value="">

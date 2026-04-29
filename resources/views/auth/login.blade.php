@@ -3,6 +3,11 @@
         @lang('Login')
     </x-slot>
 
+    @php
+        // Ne koristiti setting('is_demo_login'): keš settings.all + config default '1' ako nema retka.
+        $isDemoLoginEnabled = (string) (\App\Models\Setting::where('name', 'is_demo_login')->value('val') ?? '0') === '1';
+    @endphp
+
     <x-auth-card>
         <x-slot name="logo">
             <a href="">
@@ -30,7 +35,7 @@
                 <x-input id="email"
                          type="email"
                          name="email"
-                         :value="old('email', (setting('is_demo_login') == 1 ? 'admin@salon.com' : null))"
+                         :value="old('email', ($isDemoLoginEnabled ? 'admin@salon.com' : null))"
                          placeholder="Enter Email"
                          required
                          autofocus
@@ -47,7 +52,7 @@
                 <x-input id="password"
                          type="password"
                          name="password"
-                         :value="(setting('is_demo_login') == 1 ? '12345678' : null)"
+                         :value="($isDemoLoginEnabled ? '12345678' : null)"
                          placeholder="Enter Password"
                          required
                          minlength="8"
@@ -81,7 +86,7 @@
                 </x-button>
             </div>
         </form>
-        @if(setting('is_demo_login') == 1)
+        @if($isDemoLoginEnabled)
             <div>
                 <h6 class="text-center border-top py-3 mt-3">Demo Accounts</h6>
                 <div class="d-flex justify-content-between">

@@ -133,6 +133,7 @@ import FormHeader from '@/vue/components/form-elements/FormHeader.vue'
 import FormFooter from '@/vue/components/form-elements/FormFooter.vue'
 import FormElement from '@/helpers/custom-field/FormElement.vue'
 import FlatPickr from 'vue-flatpickr-component'
+import { Croatian } from 'flatpickr/dist/l10n/hr.js'
 import QtyButton from '@/vue/components/form-elements/QtyButton.vue'
 
 const selectedServices = ref([])
@@ -230,6 +231,7 @@ const config = ref({
   dateFormat: 'Y-m-d',
   static: true,
   minDate: new Date(),
+  locale: Croatian
 })
 
 // Edit Form Or Create Form

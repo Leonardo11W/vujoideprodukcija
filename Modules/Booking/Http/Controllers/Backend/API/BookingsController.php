@@ -55,8 +55,13 @@ class BookingsController extends Controller
             ], 403);
         }
         $data = $request->all();
-        if (!empty($request->date) && !empty($request->date)) {
-            $data['start_date_time'] = Carbon::createFromFormat('d/m/Y h:i A', $data['date'] . ' ' . $data['time']);
+        if (!empty($data['date']) && !empty($data['time'])) {
+            try {
+                $data['start_date_time'] = parseDmyDateTimeString($data['date'], $data['time']);
+                unset($data['date'], $data['time']);
+            } catch (\InvalidArgumentException $e) {
+                return response()->json(['message' => $e->getMessage(), 'status' => false], 400);
+            }
         }
 
         $data['user_id'] = !empty($request->user_id) ? $request->user_id : auth()->user()->id;
@@ -342,10 +347,10 @@ class BookingsController extends Controller
 
         // Convert date and time to start_date_time
         try {
-            $data['start_date_time'] = Carbon::createFromFormat('d/m/Y h:i A', $request->date . ' ' . $request->time);
-        } catch (\Exception $e) {
+            $data['start_date_time'] = parseDmyDateTimeString($request->date, $request->time);
+        } catch (\InvalidArgumentException $e) {
             return response()->json([
-                'message' => 'Invalid date or time format. Expected date format: dd/mm/yyyy and time format: hh:mm AM/PM',
+                'message' => $e->getMessage(),
                 'status' => false
             ], 400);
         }
@@ -648,11 +653,18 @@ class BookingsController extends Controller
             ], 401);
         }
 
-        $booking = Booking::with(
-            'booking_service',
+        $booking = Booking::with([
+            'booking_service.service',
+            'booking_service.employee',
             'bookingTransaction',
-            'bookingPackages.bookedPackageService'
-        );
+            'bookingPackages.bookedPackageService',
+            'branch.address',
+            'payment',
+            'products',
+            'user',
+            'createdUser',
+            'updatedUser',
+        ]);
 
         if ($user->hasRole('user')) {
             $booking->where('user_id', $user->id);

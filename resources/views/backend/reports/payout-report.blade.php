@@ -59,14 +59,24 @@
     <script type="text/javascript" src="{{ asset('vendor/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('js/form-modal/index.js') }}" defer></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/hr.js"></script>
+
     <script type="text/javascript" defer>
         const range_flatpicker = document.querySelectorAll('.booking-date-range')
+        const reportFpOpts = {
+            mode: "range",
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat: "d.m.Y",
+        };
+        @if(in_array(app()->getLocale(), ['bs', 'hr', 'sr'], true))
+        if (typeof flatpickr !== 'undefined' && flatpickr.l10ns && flatpickr.l10ns.hr) {
+            reportFpOpts.locale = flatpickr.l10ns.hr;
+        }
+        @endif
         Array.from(range_flatpicker, (elem) => {
             if (typeof flatpickr !== typeof undefined) {
-                flatpickr(elem, {
-                    mode: "range",
-                    dateFormat: "d-m-Y",
-                })
+                flatpickr(elem, reportFpOpts)
             }
         })
 

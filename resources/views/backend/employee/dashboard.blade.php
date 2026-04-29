@@ -11,7 +11,7 @@
         <form action="{{ route('backend.staff.dashboard') }}" class="d-flex align-items-center gap-2">
           <div class="form-group my-0 ms-3">
             <input type="text" name="date_range" value="{{ $date_range }}" class="form-control dashboard-date-range"
-              placeholder="24 may 2023 to 25 June 2023" readonly="readonly">
+              placeholder="{{ __('dashboard.date_range_placeholder') }}" readonly="readonly">
           </div>
           <button type="submit" name="action" value="filter" class="btn btn-primary" data-bs-toggle="tooltip"
             data-bs-title="{{ __('messages.submit_date_filter') }}">{{ __('dashboard.lbl_submit') }}</button>
@@ -132,29 +132,7 @@
         class="card-body py-0 upcoming-appointments {{ count($data['upcomming_appointments']) > 0 ? '' : 'iq-upcomming' }}">
         <ul class="list-group list-group-flush ">
           @forelse ($data['upcomming_appointments'] as $booking)
-          <li class="list-group-item">
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="d-flex">
-                <img src="{{ $booking->user->profile_image ?? default_user_avatar() }}" alt="01"
-                  class="rounded-pill avatar avatar-60" loading="lazy">
-                <div class="ms-3">
-                  <h5 class="mb-2">{{ $booking->user->full_name ?? default_user_name() }}</h5>
-                  <p class="mb-0 col-md-8">{{ date('M d | g:i A', strtotime($booking->start_date_time)) }} | {{ $booking->branch->name }}</p>
-                </div>
-              </div>
-              <div class="d-flex align-items-center text-info col-5">
-                <i class="fa-regular fa-clock me-2"></i>
-                @php
-                    $timezone = setting('default_time_zone') ?? 'UTC';
-                    $currentDateTime = Carbon\Carbon::now($timezone);
-                    $dateTime = Carbon\Carbon::parse($booking->start_date_time, $timezone);
-                    $timeUntil = $currentDateTime->copy()->add($dateTime->diff())->diffForHumans(null, true);
-                @endphp
-
-                In {{ $timeUntil }}
-              </div>
-            </div>
-          </li>
+          @include('backend.partials.dashboard-upcoming-item', ['booking' => $booking])
           @empty
           <p class="text-center">{{ __('dashboard.lbl_upcoming_bookings') }}</p>
           @endforelse
@@ -241,6 +219,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush
 @push('after-scripts')
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/hr.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.40.0/apexcharts.min.js"
         integrity="sha512-Kr1p/vGF2i84dZQTkoYZ2do8xHRaiqIa7ysnDugwoOcG0SbIx98erNekP/qms/hBDiBxj336//77d0dv53Jmew=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -258,15 +237,24 @@
             }
 
             const range_flatpicker = document.querySelectorAll('.dashboard-date-range')
+            const dashboardFpOpts = {
+                mode: "range",
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "d.m.Y",
+            };
+            @if(in_array(app()->getLocale(), ['bs', 'hr', 'sr'], true))
+            if (typeof flatpickr !== 'undefined' && flatpickr.l10ns && flatpickr.l10ns.hr) {
+                dashboardFpOpts.locale = flatpickr.l10ns.hr;
+            }
+            @endif
             Array.from(range_flatpicker, (elem) => {
                 if (typeof flatpickr !== typeof undefined) {
-                    flatpickr(elem, {
-                        mode: "range",
-                    })
+                    flatpickr(elem, dashboardFpOpts)
                 }
             })
             if (document.querySelectorAll("#chart-01").length) {
-                const variableColors = IQUtils.getVariableColor();
+                const variableColors = (typeof IQUtils !== 'undefined' && IQUtils.getVariableColor) ? IQUtils.getVariableColor() : { primary: '#862e6f', secondary: '#19235a' };
                 const colors = [variableColors.primary, variableColors.secondary];
                 const options = {
                     series: [{
@@ -351,7 +339,7 @@
                 chart.render();
             }
             if (document.querySelectorAll('#chart-02').length) {
-                const variableColors = IQUtils.getVariableColor();
+                const variableColors = (typeof IQUtils !== 'undefined' && IQUtils.getVariableColor) ? IQUtils.getVariableColor() : { primary: '#862e6f', secondary: '#19235a' };
                 const colors = [variableColors.secondary, variableColors.primary];
                 const options = {
                     series: [{

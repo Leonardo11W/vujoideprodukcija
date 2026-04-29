@@ -26,25 +26,6 @@
         html[data-bs-theme="dark"] .light-logo {
             display: none;
         }
-        
-        /* Prevent scrolling at 100% zoom */
-        @media screen and (zoom: 1) {
-            body {
-                height: 100vh;
-                overflow: hidden;
-            }
-            
-            .main-content {
-                height: calc(100vh - 120px); /* Adjust based on header height */
-                overflow-y: auto;
-            }
-        }
-        
-        /* Alternative approach - limit content height */
-        .homepage-content {
-            max-height: 100vh;
-            overflow-y: auto;
-        }
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -99,7 +80,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Lexend+Deca:wght@100..900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&subset=latin,latin-ext&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('iconly/css/style.css') }}">
 
@@ -112,7 +93,7 @@
 
 
     <!-- Bootstrap 5 CSS -->
-    <link rel="stylesheet" href="{{ asset('modules/frontend/style.css') }}">
+    <link rel="stylesheet" href="{{ mix('modules/frontend/style.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('vendor/slick/slick.min.js') }}" defer></script>
 
@@ -139,7 +120,7 @@
     <!-- jQuery (required for Bootstrap and other plugins) -->
 
 
-    <script src="{{ asset('modules/frontend/script.js') }}"></script>
+    <script src="{{ mix('modules/frontend/script.js') }}"></script>
     @include('frontend::components.partials.scripts.plugins')
     <script>
         const wishlistAddUrl = "{{ route('wishlist.add') }}";

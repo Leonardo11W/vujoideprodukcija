@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Translation\Translator;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,7 +41,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        Paginator::useBootstrapFive(); 
+        Paginator::useBootstrapFive();
+
+        try {
+            Carbon::setLocale($this->app['config']->get('app.locale', 'hr'));
+        } catch (\Throwable $e) {
+        } 
 
         Blade::directive('hasPermission', function ($permissions) {
             return "<?php 

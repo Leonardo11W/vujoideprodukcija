@@ -1,0 +1,15 @@
+{
+    "Are you sure?": "Jeste li sigurni?",
+    "This action cannot be undone.": "Ova radnja se ne može poništiti.",
+    "Yes, proceed": "Da, nastavi",
+    "Cancel": "Otkaži",
+    "Delete Confirmation": "Potvrda brisanja",
+    "Are you sure you want to delete this item? This action cannot be undone.": "Jeste li sigurni da želite obrisati ovu stavku? Ova radnja se ne može poništiti.",
+    "Yes, delete": "Da, obriši",
+    "Cancel Confirmation": "Potvrda otkazivanja",
+    "Are you sure you want to cancel? Any unsaved changes will be lost.": "Jeste li sigurni da želite otkazati? Sve nesačuvane promjene bit će izgubljene.",
+    "Yes, cancel": "Da, otkaži",
+    "Continue editing": "Nastavi uređivati",
+    "You will be logged out": "Bit ćete odjavljeni s računa.",
+    "Yes, logout": "Da, odjavi se"
+}

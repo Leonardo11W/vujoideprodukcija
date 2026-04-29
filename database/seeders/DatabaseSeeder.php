@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $file = new Filesystem;
         $file->cleanDirectory('storage/app/public');
         Setting::create(['name' => 'slot_duration', 'val' => '00:15', 'type' => 'text']);
-        Setting::create(['name' => 'is_demo_login', 'val' => '1', 'type' => 'integaration']);
+        Setting::create(['name' => 'is_demo_login', 'val' => '0', 'type' => 'integaration']);
         $this->call(BranchSeeder::class);
         $this->call(AuthTableSeeder::class);
         $this->call(\Modules\MenuBuilder\database\seeders\MenuBuilderDatabaseSeeder::class);
@@ -65,6 +65,7 @@ class DatabaseSeeder extends Seeder
       
         $this->call(WhyChooseTableSeeder::class);
         $this->call(WhyChooseFeaturesTableSeeder::class);
+        $this->call(KozmetickiSalonDarSeeder::class);
         // $this->call(ManagerOrderPermissionsSeeder::class);
     }
 }

@@ -1,5 +1,5 @@
 @props(['experts', 'expert_ids'])
-<div class="export-section section-spacing-bottom">
+<div class="export-section section-spacing-bottom vujo-section vujo-experts">
     <div class="container">
         <div class="section-title text-center">
             <span
@@ -37,7 +37,7 @@
             const expertsList = document.getElementById('experts-section-list');
             if (!experts || experts.length === 0) {
                 expertsList.innerHTML =
-                    '<div class="col-12 text-center py-5"><p class="text-body">No experts selected</p></div>';
+                    '<div class="col-12 text-center py-5"><p class="text-body">{{ e(__("frontend.no_experts_available_at_the_moment")) }}</p></div>';
                 return;
             }
             let expertsHtml = '';
@@ -122,7 +122,7 @@
                 } else {
                     shimmerLoader.classList.add('d-none');
                     expertsList.innerHTML =
-                        '<div class="col-12 text-center py-5"><p class="text-body">No experts selected</p></div>';
+                        '<div class="col-12 text-center py-5"><p class="text-body">{{ e(__("frontend.no_experts_available_at_the_moment")) }}</p></div>';
                 }
                 return;
             }
@@ -136,14 +136,14 @@
                         renderExperts(data.experts);
                     } else {
                         expertsList.innerHTML =
-                            '<div class="col-12 text-center py-5"><p class="text-body">No experts available for this branch</p></div>';
+                            '<div class="col-12 text-center py-5"><p class="text-body">{{ e(__("frontend.no_experts_for_this_branch")) }}</p></div>';
                         document.querySelector('.export-button').classList.add('d-none');
                     }
                 })
                 .catch(error => {
                     shimmerLoader.classList.add('d-none');
                     expertsList.innerHTML =
-                        '<div class="col-12 text-center py-5"><p class="text-danger">Error loading experts</p></div>';
+                        '<div class="col-12 text-center py-5"><p class="text-danger">{{ e(__("frontend.error_loading_experts")) }}</p></div>';
                     document.querySelector('.export-button').classList.add('d-none');
                 });
         }
@@ -169,7 +169,7 @@
                 } else {
                     shimmerLoader.classList.add('d-none');
                     document.getElementById('experts-section-list').innerHTML =
-                        '<div class="col-12 text-center py-5"><p class="text-body">No experts selected</p></div>';
+                        '<div class="col-12 text-center py-5"><p class="text-body">{{ e(__("frontend.no_experts_available_at_the_moment")) }}</p></div>';
                 }
             }, 1000); // 1 second delay to show shimmer
         }

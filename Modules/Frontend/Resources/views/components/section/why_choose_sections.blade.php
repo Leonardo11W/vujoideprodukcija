@@ -1,14 +1,14 @@
-<div class="export-section-spacing section-spacing-bottom">
+<div class="export-section-spacing section-spacing-bottom vujo-section vujo-why-choose">
     <div class="container-fluid">
-        <div class="why-choose-section-wrapper bg-orange-subtle p-5 rounded">
+        <div class="why-choose-section-wrapper bg-orange-subtle p-4 p-md-5 rounded vujo-surface">
             <div class="row align-items-center gy-4">
                 <div class="col-xl-5 col-lg-6">
                     <div class="section-title">
                         <span class="decorator-title decorator-font text-primary text-uppercase text-decoration-underline">
-                            {{ $whyChoose?->subtitle ?? 'why frezka' }}
+                            {{ $whyChoose?->subtitle ?? __('frontend.why_choose_subtitle_default') }}
                         </span>
-                        <h4 class="title">{{ $whyChoose?->title ?? 'Why Choose Frezka' }}</h4>
-                        <p class="mb-0 mt-2 text-body">{{ $whyChoose?->description ?? 'With an intuitive booking system, expert selection, & exclusive offers, our all-in-one platform ensures seamless operations while enhancing customer loyalty.' }}</p>
+                        <h4 class="title">{{ $whyChoose?->title ?? __('frontend.why_choose_title_default') }}</h4>
+                        <p class="mb-0 mt-2 text-body">{{ $whyChoose?->description ?? __('frontend.why_choose_body_default') }}</p>
                     </div>
                     @php
                         use Modules\FrontendSetting\Models\WhyChooseFeature;
@@ -45,19 +45,19 @@
                             <div class="col-xxl-4 col-lg-6">
                                 <div class="choose-us-card bg-gray-900 rounded">
                                     <i class="ph ph-alarm h3 mb-0 icon-color"></i>
-                                    <h6 class="mt-lg-5 mt-3 mb-0">Quick & Easy Booking</h6>
+                                    <h6 class="mt-lg-5 mt-3 mb-0">{{ __('frontend.feature_booking_title') }}</h6>
                                 </div>
                             </div>
                             <div class="col-xxl-4 col-lg-6">
                                 <div class="choose-us-card bg-gray-900 rounded">
                                     <i class="ph ph-user-check h3 mb-0 icon-color"></i>
-                                    <h6 class="mt-lg-5 mt-3 mb-0">Enhance Client Satisfaction</h6>
+                                    <h6 class="mt-lg-5 mt-3 mb-0">{{ __('frontend.feature_satisfaction_title') }}</h6>
                                 </div>
                             </div>
                             <div class="col-xxl-4 col-lg-12">
                                 <div class="choose-us-card bg-gray-900 rounded">
                                     <i class="ph ph-trend-up h3 mb-0 icon-color"></i>
-                                    <h6 class="mt-lg-5 mt-3 mb-0">Discover trends with analytics</h6>
+                                    <h6 class="mt-lg-5 mt-3 mb-0">{{ __('frontend.feature_analytics_title') }}</h6>
                                 </div>
                             </div>
                         @endif

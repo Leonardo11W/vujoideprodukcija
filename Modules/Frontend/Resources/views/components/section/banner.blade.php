@@ -2,7 +2,7 @@
 
 
 @if($sliders->count() > 0)
-<div class="banner-section-wrapper">
+<div class="banner-section-wrapper vujo-hero">
     <div class="main-banner">
         <div class="slick-banner">
 

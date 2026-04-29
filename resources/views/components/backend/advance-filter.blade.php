@@ -1,18 +1,18 @@
-<div class="offcanvas offcanvas-end" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" data-bs-backdrop="true" data-bs-keyboard="true">
-  <div class="offcanvas-header border-bottom">
+<div class="offcanvas offcanvas-end admin-advance-filter" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" data-bs-backdrop="true" data-bs-keyboard="true">
+  <div class="offcanvas-header border-bottom px-4 py-3">
     @if(isset($title))
       {{ $title }}
     @endif
-    <button type="button" class="btn-close mb-1" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
-  <div class="offcanvas-body">
+  <div class="offcanvas-body px-4">
     {{ $slot }}
   </div>
-  <div class="offcanvas-body">
-    @if(isset($footer))
-      {{$footer}}
-    @endif
+  @if(isset($footer))
+  <div class="offcanvas-body border-top px-4 py-3">
+    {{ $footer }}
   </div>
+  @endif
 </div>
   <!-- @push('after-scripts')
     <script>

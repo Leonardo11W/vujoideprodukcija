@@ -18,7 +18,7 @@
             ->exists();
     }
 
-
+    $firstVariation = isset($product) ? $product->product_variations->first() : null;
 @endphp
 
 <div class="product-card text-center position-relative h-100 d-flex flex-column product-card-fixed" data-rating="{{ $avgRating ?? 'no-rating' }}" @if(isset($product->slug) && !empty($product->slug)) data-url="{{ route('product-detail', ['slug' => $product->slug]) }}" @endif>
@@ -54,14 +54,14 @@
             @foreach($product->media as $media) 
     
                 <div class="product-image">
-                    <img src="{{ $media->getFullUrl() }}" alt="{{ $product->name ?? 'Product Image' }}">
+                    <img src="{{ $media->getFullUrl() }}" alt="{{ $product->name ?? __('frontend.product_image_alt') }}">
                 </div>
             @endforeach
         </a>
         @else
         <a href="{{ route('product-detail', ['slug' => $product->slug]) }}" class="text-truncate d-block">
             <div class="product-image">
-                <img src="{{ asset('img/frontend/product.png') }}" alt="{{ $product->name ?? 'Product Image' }}">
+                <img src="{{ asset('img/frontend/product.png') }}" alt="{{ $product->name ?? __('frontend.product_image_alt') }}">
             </div>
         </a>
         @endif
@@ -80,7 +80,7 @@
         </h5>
 
         @php
-            $originalPrice = $product->product_variations->first()->price ?? 0;
+            $originalPrice = $firstVariation?->price ?? 0;
             $discountValue = (float) ($product->discount_value ?? 0);
             $startTs = isset($product->discount_start_date) && $product->discount_start_date !== '' ? (int) $product->discount_start_date : null;
             $endTs = isset($product->discount_end_date) && $product->discount_end_date !== '' ? (int) $product->discount_end_date : null;
@@ -128,26 +128,28 @@
                         @endif
         </div>
 
+        @if($firstVariation)
         @auth
             <button id="addToCartBtn_{{ $product->id }}"
                     class="btn btn-secondary mt-3 w-100 add-to-cart"
-                    onclick="handleAddToCart({{ $product->id }}, {{ $product->product_variations->first()->id }})"
+                    onclick="handleAddToCart({{ $product->id }}, {{ $firstVariation->id }})"
                     style="{{ isset($product->in_cart) && $product->in_cart ? 'display: none;' : '' }}"
                     data-product-id="{{ $product->id }}">
                 <i class="ph ph-shopping-cart"></i> {{__('frontend.add_to_cart')}}
             </button>
             <button id="removeFromCartBtn_{{ $product->id }}"
                     class="btn btn-danger mt-3 w-100 remove-from-cart"
-                    onclick="removeFromCart({{ $product->id }},{{ $product->product_variations->first()->id }})"
+                    onclick="removeFromCart({{ $product->id }},{{ $firstVariation->id }})"
                     style="{{ !isset($product->in_cart) || !$product->in_cart ? 'display: none;' : '' }}"
                     data-product-id="{{ $product->id }}">
                 <i class="ph ph-trash"></i> {{__('frontend.remove_from_cart')}}
             </button>
         @else
-            <button class="btn btn-secondary mt-3 w-100" onclick="handleAddToCart({{ $product->id }},{{ $product->product_variations->first()->id }})">
+            <button class="btn btn-secondary mt-3 w-100" onclick="handleAddToCart({{ $product->id }},{{ $firstVariation->id }})">
                 <i class="ph ph-shopping-cart"></i> {{__('frontend.add_to_cart')}}
             </button>
         @endauth
+        @endif
     </div>
 </div>
 
@@ -226,7 +228,7 @@ if (typeof window.productCardAuthHandlerLoaded === 'undefined') {
                         detail: { productId: productId, inCart: true }
                     }));
                     
-                    toastr.success('Added to cart');
+                    toastr.success('{{ __("frontend.product_added_to_cart_successfully") }}');
                     // Update cart count immediately if available
                     if (typeof response.cart_count !== 'undefined') {
                         $('#cartCount').text(response.cart_count);
@@ -275,7 +277,7 @@ if (typeof window.productCardAuthHandlerLoaded === 'undefined') {
                         detail: { productId: productId, inCart: false }
                     }));
                     
-                    toastr.success('Removed from cart');
+                    toastr.success('{{ __("frontend.product_removed_from_cart_successfully") }}');
                     // Update cart count immediately if available
                     if (typeof response.cart_count !== 'undefined') {
                         $('#cartCount').text(response.cart_count);

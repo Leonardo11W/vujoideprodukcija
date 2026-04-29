@@ -374,7 +374,7 @@ class ReportsController extends Controller
         // }
 
         if ($request->filled('filter.booking_date')) {
-            $dates = explode(' to ', $request->filter['booking_date']);
+            $dates = $this->splitFlatpickrRange($request->filter['booking_date']);
             $start = date('Y-m-d 00:00:00', strtotime($dates[0]));
             $end = count($dates) > 1
                 ? date('Y-m-d 23:59:59', strtotime($dates[1]))
@@ -534,18 +534,21 @@ class ReportsController extends Controller
         }
 
         if ($request->has('date_range')) {
-            $dateRange = explode(' to ', $request->date_range);
-            if (isset($dateRange[1])) {
+            $dateRange = $this->splitFlatpickrRange($request->date_range);
+            if (count($dateRange) >= 2) {
                 $startDate = $dateRange[0] ?? date('Y-m-d');
                 $endDate = $dateRange[1] ?? date('Y-m-d');
                 $query->whereDate('start_date_time', '>=', $startDate)
                     ->whereDate('start_date_time', '<=', $endDate);
+            } elseif (count($dateRange) === 1) {
+                $single = $dateRange[0] ?? date('Y-m-d');
+                $query->whereDate('start_date_time', $single);
             }
         }
 
         $filter = $request->filter;
         if (isset($filter['booking_date'])) {
-            $bookingDates = explode(' to ', $filter['booking_date']);
+            $bookingDates = $this->splitFlatpickrRange($filter['booking_date']);
 
             if (count($bookingDates) >= 2) {
                 $startDate = date('Y-m-d 00:00:00', strtotime($bookingDates[0]));
@@ -730,7 +733,7 @@ class ReportsController extends Controller
         }
 
         if (isset($filter['booking_date'])) {
-            $bookingDates = explode(' to ', $filter['booking_date']);
+            $bookingDates = $this->splitFlatpickrRange($filter['booking_date']);
 
             if (count($bookingDates) >= 2) {
                 $startDate = date('Y-m-d 00:00:00', strtotime($bookingDates[0]));

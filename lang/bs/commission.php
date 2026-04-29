@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'lbl_title' => 'Title',
-    'lbl_value' => 'Commission Value',
-    'lbl_type' => 'Commission Type',
-    'lbl_add_commission' => 'Add Commission',
-    'lbl_edit_commission' => 'Edit Commission',
-    'lbl_sr_no' => 'Sr.No',
-    'lbl_action' => 'Action',
-    'enter_title'=>'Enter Title',
-    'commission_value'=>'Enter Commission Value',
-    'commision_type'=>'Select Commission Type',
+    'lbl_title' => 'Naziv',
+    'lbl_value' => 'Vrijednost provizije',
+    'lbl_type' => 'Tip provizije',
+    'lbl_add_commission' => 'Dodaj proviziju',
+    'lbl_edit_commission' => 'Uredi proviziju',
+    'lbl_sr_no' => 'R.br.',
+    'lbl_action' => 'Radnja',
+    'enter_title' => 'Unesite naziv',
+    'commission_value' => 'Unesite vrijednost provizije',
+    'commision_type' => 'Odaberite tip provizije',
 
 ];

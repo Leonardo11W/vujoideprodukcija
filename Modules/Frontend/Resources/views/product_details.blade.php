@@ -130,7 +130,7 @@
                     </div>
                     <div class="col-lg-6">
                         <h4>{{ $product->name }}</h4>
-                        <span>{!! $product->description ?? 'No description available' !!}</span>
+                        <span>{!! $product->description ?: e(__('frontend.no_description_available')) !!}</span>
                         <span>{!! $product->short_description ?? null !!}</span>
 
                         @php
@@ -242,8 +242,8 @@
                                             : collect();
                                         $variationLabel = $labelParts->isNotEmpty()
                                             ? $labelParts->join(' / ')
-                                            : ((string) ($variation->variation_key ?? 'Variation'));
-                                        $variationLabel = trim($variationLabel) !== '' ? $variationLabel : 'Variation';
+                                            : ((string) ($variation->variation_key ?? __('frontend.variation')));
+                                        $variationLabel = trim($variationLabel) !== '' ? $variationLabel : __('frontend.variation');
                                     @endphp
 
                                     <div class="form-check">
@@ -273,7 +273,7 @@
                                     </svg>
                                 </button>
                                 <input type="number" class="btn btn-link border-0 input-display" data-qty="input"
-                                    min="1" max="{{ $product->stock_qty }}" value="1" title="Qty"
+                                    min="1" max="{{ $product->stock_qty }}" value="1" title="{{ __('frontend.qty') }}"
                                     id="quantity-input" autocomplete="off">
                                 <button type="button" class="btn btn-link border-0 iq-quantity-plus heading-color"
                                     onclick="incrementQuantity()">
@@ -288,12 +288,12 @@
                             <div class="d-flex align-items-center gap-2 flex-md-nowrap flex-wrap">
                                 <button class="btn btn-secondary" id="add-to-cart-btn"
                                     data-product-id="{{ $product->id }}"
-                                    data-product-variation-id="{{ $product->product_variations->first()->id }}"
+                                    data-product-variation-id="{{ $firstVariation?->id ?? '' }}"
                                     style="display: {{ $product->in_cart ? 'none' : 'inline-block' }};"
-                                    {{ $product->stock_qty <= 0 ? 'disabled' : '' }}>{{ __('frontend.add_to_cart') }}</button>
+                                    {{ $product->stock_qty <= 0 || !$firstVariation ? 'disabled' : '' }}>{{ __('frontend.add_to_cart') }}</button>
                                 <button class="btn btn-danger" id="remove-from-cart-btn"
                                     data-product-id="{{ $product->id }}"
-                                    data-product-variation-id="{{ $product->product_variations->first()->id }}"
+                                    data-product-variation-id="{{ $firstVariation?->id ?? '' }}"
                                     style="display: {{ $product->in_cart ? 'inline-block' : 'none' }};">{{ __('frontend.remove_from_cart') }}</button>
                             </div>
                         </div>
@@ -476,7 +476,7 @@
                                 $('#loginModal').modal('show');
                             } else if (window.toastr) {
                                 toastr.error((data && (data.message || data.error)) ||
-                                    'Failed to add to cart.');
+                                    '{{ __('frontend.failed_to_add_item_to_cart_please_try_again') }}');
                             }
                         }
                     })
@@ -493,7 +493,7 @@
                         } else if (typeof $ !== 'undefined' && $('#loginModal').length) {
                             $('#loginModal').modal('show');
                         } else if (window.toastr) {
-                            toastr.error('Failed to add to cart. Please try again.');
+                            toastr.error('{{ __('frontend.failed_to_add_item_to_cart_please_try_again') }}');
                         }
                     });
             });
@@ -545,13 +545,13 @@
                             if (addToCartBtn) addToCartBtn.style.display = 'inline-block';
                         } else {
                             if (window.toastr) toastr.error(data.message ||
-                                'Failed to remove from cart.');
+                                '{{ __('frontend.remove_from_cart_failed') }}');
                         }
                     })
                     .catch(() => {
                         removeFromCartBtn.disabled = false;
                         if (window.toastr) toastr.error(
-                            'Failed to remove from cart. Please try again.');
+                            '{{ __('frontend.failed_to_remove_item_from_cart_please_try_again') }}');
                     });
             });
         }

@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'language_changed' => 'Jezik je postavljen na :code.',
     'Welcome to' => 'Dobrodošli u :name Admin kontrolnu tablu.',
     'yes' => 'Da',
     'no' => 'Ne',
@@ -300,7 +301,10 @@ return [
     'calendar_day' => 'Dan',
     'calendar_week' => 'Sedmica',
     'calendar_month' => 'Mjesec',
-    'list' => 'Lista',
+    'calendar_list' => 'Lista',
+    'calendar_refresh' => 'Osvježi kalendar',
+    'booking_calendar_new_appointment' => 'Novi termin',
+    'calendar_staff_pagination_hint' => 'Stupci osoblja · stranice',
     'app_name' => 'Frezka',
     'old_password' => 'Stara lozinka',
     'delete_confirmation' => 'Potvrda brisanja',

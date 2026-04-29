@@ -1,4 +1,4 @@
-<div class="testimonial-section section-spacing-bottom">
+<div class="testimonial-section section-spacing-bottom vujo-section vujo-testimonials">
     <div class="container">
         <div class="section-title text-center">
             <span class="decorator-title decorator-font text-primary text-uppercase text-decoration-underline">{{__('frontend.happy_customers')}}</span>
@@ -33,7 +33,7 @@
     </div>
     @else
         <div class="text-center py-5">
-            <p class="text-body">No customer reviews available yet.</p>
+            <p class="text-body">{{ __('frontend.no_reviews_available_yet') }}</p>
         </div>
     @endif
 </div>

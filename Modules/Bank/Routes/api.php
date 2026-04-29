@@ -22,14 +22,14 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->name('api.')->group(function 
 });
 
 Route::middleware(['auth:sanctum'])->group(function (){
-    Route::post('/save-bank', [BankController::class, 'store'])->name('save-bank');
+    Route::post('/save-bank', [BankController::class, 'store'])->name('api.save-bank');
     Route::get('/user-bank-detail', [BankController::class, 'showBank'])->name('user-bank-detail');
     Route::get('/default-bank', [BankController::class, 'setDefault'])->name('default-bank');
     Route::post('/edit-bank', [BankController::class, 'editBank'])->name('edit-bank');
     Route::delete('delete-bank/{bankId}', [BankController::class, 'deleteBank'])->name('delete-bank');
 });
 
-Route::get  ('/hello',function(){
-    return ["name"=>"hii"];
-})->name('save-bank');
+Route::get('/hello', function () {
+    return ['name' => 'hii'];
+})->name('api.hello');
 

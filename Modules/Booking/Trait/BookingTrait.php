@@ -387,7 +387,7 @@ trait BookingTrait
                 if (!$is_booked) {
                     $slot = [
                         'value' => date('Y-m-d H:i:s', $startTimestamp),
-                        'label' => date('h:i A', $slot_start),
+                        'label' => date('H:i', $slot_start),
                         'disabled' => false,
                     ];
                     $slots[] = $slot;
@@ -428,9 +428,9 @@ trait BookingTrait
             'employee_id' => $assignedEmployee?->id,
             'employee_name' => $assignedEmployee?->full_name ?? 'Staff',
             'booking_date' => date('d/m/Y', strtotime($booking->start_date_time)),
-            'booking_time' => date('h:i A', strtotime($booking->start_date_time)),
+            'booking_time' => date('H:i', strtotime($booking->start_date_time)),
             'booking_duration' => $bookingDurationMin,
-            'check_out_time' => date('h:i A', strtotime($checkOutDateTime)),
+            'check_out_time' => date('H:i', strtotime($checkOutDateTime)),
             'venue_address' => implode(', ', $address),
             'email' => $booking->user->email ?? null,
             'mobile' => $booking->user->mobile ?? null,

@@ -3,17 +3,17 @@
 @section('content')
 
 
-<div class="section-spacing-inner-pages">
+<div class="section-spacing-inner-pages vujo-page-inner vujo-subcategory-page">
     <div class="container">
         <div class="section-title d-flex flex-wrap align-items-center justify-content-between gap-3">
             <div class="">
-                <span class="decorator-title decorator-font text-primary text-uppercase text-decoration-underline">our subcategories</span>
-                <h4 class="title mb-0">Hair Styling Subcategory</h4>
+                <span class="decorator-title decorator-font text-primary text-uppercase text-decoration-underline">{{ __('frontend.our_subcategories') }}</span>
+                <h4 class="title mb-0">{{ __('messages.subcategory') }}</h4>
             </div>
             <div class="">
                 <div class="input-group mb-0">
                     <span class="input-group-text"><i class="ph ph-magnifying-glass"></i></span>
-                    <input type="text" class="form-control" placeholder="eg. "expert, service, branch"">
+                    <input type="text" class="form-control" placeholder="{{ __('frontend.subcategory_search_placeholder') }}">
                 </div>
             </div>
         </div>

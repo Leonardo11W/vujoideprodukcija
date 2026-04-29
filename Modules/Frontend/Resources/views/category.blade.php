@@ -10,7 +10,7 @@
     dd(auth()->user());
 @endphp --}}
 
-    <div class="category-section section-spacing-inner-pages">
+    <div class="category-section section-spacing-inner-pages vujo-page-inner vujo-category-page">
         <div class="container">
             <div class="section-title d-flex flex-wrap align-items-center justify-content-between gap-3">
                 <div>

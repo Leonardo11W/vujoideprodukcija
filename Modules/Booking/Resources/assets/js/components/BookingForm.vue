@@ -1,6 +1,6 @@
 <template>
   <form>
-    <div :class="`offcanvas offcanvas-end`" data-bs-scroll="true" tabindex="-1" id="booking-form" aria-labelledby="offcanvasBookingForm">
+    <div class="offcanvas offcanvas-end booking-form-offcanvas d-flex flex-column" style="min-height: 100vh;" data-bs-scroll="false" tabindex="-1" id="booking-form" aria-labelledby="offcanvasBookingForm">
       <template v-if="SINLGE_STEP == 'MAIN' && status == 'completed'">
         <InvoiceComponent :booking_id="id"></InvoiceComponent>
       </template>
@@ -18,11 +18,11 @@
               <i>On</i> <strong>{{ moment(start_date_time).format('D, MMM YYYY') }}</strong>
             </div>
             <div class="col-6 py-3">
-              <i>At</i> <strong>{{ moment(start_date_time).format('LT') }}</strong>
+              <i>At</i> <strong>{{ moment(start_date_time).format('HH:mm') }}</strong>
             </div>
           </div>
         </div>
-        <div class="offcanvas-body border-top">
+        <div class="offcanvas-body border-top flex-grow-1 overflow-y-auto">
           <div class="form-group" v-if="bookingType !== 'CALENDER_BOOKING' && branch.options.length > 1">
             <Multiselect id="branch_id" placeholder="Select Branch" v-model="branch_id" :disabled="is_paid || filterStatus(status).is_disabled || !hasEditPermission" :value="branch_id" v-bind="singleSelectOption" :options="branch.options" @select="branchSelect" @change="removeBranch" class="form-group"></Multiselect>
           </div>
@@ -92,7 +92,7 @@
                     ><i>{{ $t('booking.lbl_at') }}</i
                     >&nbsp;</label
                   >
-                  <strong v-if="service.start_date_time !== 'Invalid date'">{{ moment(service.start_date_time).format('LT') }}</strong
+                  <strong v-if="service.start_date_time !== 'Invalid date'">{{ moment(service.start_date_time).format('HH:mm') }}</strong
                   ><strong v-else>--:--</strong> <span class="px-2">|</span> <label class="me-2"><i>For: </i></label><strong>{{ service.duration_min }} Min</strong>
                 </div>
               </div>
@@ -153,8 +153,12 @@
             </ul>
           </div>
           -->
+          <div class="form-group px-1 px-md-2 pb-2 border-top mt-2 pt-3">
+            <label class="form-label">{{ $t('booking.lbl_note') }}</label>
+            <textarea name="note" :disabled="is_paid || filterStatus(status).is_disabled || !hasEditPermission" v-model="note" cols="60" class="form-control" rows="3"></textarea>
+          </div>
         </div>
-        <div class="offcanvas-footer">
+        <div class="offcanvas-footer mt-auto border-top bg-body">
           <!-- User package alert commented out -->
           <!--
           <div v-if="userPackage && userPackage.length > 0 && selectPurchasePackages.length === 0">
@@ -167,11 +171,7 @@
             </a>
           </div>
           -->
-          <div class="form-group px-3">
-            <label class="form-label">{{ $t('booking.lbl_note') }}</label>
-            <textarea name="note" :disabled="is_paid || filterStatus(status).is_disabled || !hasEditPermission" v-model="note" cols="60" class="form-control"></textarea>
-          </div>
-          <div class="form-group m-0 p-3 d-flex justify-content-between border-top">
+          <div class="form-group m-0 p-3 d-flex justify-content-between border-bottom">
             <label for=""
               ><strong>{{ $t('booking.lbl_sub_tot') }} </strong>
             </label>
@@ -188,7 +188,7 @@
           </div>
         </div>
       </template>
-      <template v-else-if="SINLGE_STEP == 'CHECK_OUT' && status == 'checkout'">
+      <template v-else-if="SINLGE_STEP == 'CHECK_OUT' && (status == 'checkout' || (bookingType === 'CALENDER_BOOKING' && status == 'confirmed'))">
         <div class="offcanvas-header">
           <div class="d-flex gap-2 align-items-center">
             <h4 class="offcanvas-title" id="form-offcanvasLabel">Checkout</h4>
@@ -237,7 +237,7 @@
                       ><i>{{ $t('booking.lbl_at') }}</i
                       >&nbsp;</label
                     >
-                    <strong>{{ moment(service.start_date_time).format('LT') }}</strong> <span class="px-2">|</span> <label class="me-2"> <i>For:</i></label
+                    <strong>{{ moment(service.start_date_time).format('HH:mm') }}</strong> <span class="px-2">|</span> <label class="me-2"> <i>For:</i></label
                     ><strong> {{ service.duration_min }} Min</strong>
                   </div>
                 </div>
@@ -624,6 +624,8 @@ import InvoiceComponent from './Forms/InvoiceComponent.vue'
 import QtyButton from '@/vue/components/form-elements/QtyButton.vue'
 import { useSelect } from '@/helpers/hooks/useSelect'
 import moment from 'moment'
+import 'moment/locale/hr'
+import { Croatian } from 'flatpickr/dist/l10n/hr.js'
 
 // Permission checks
 const hasAddPermission = computed(() => {
@@ -672,12 +674,15 @@ const filterStatus = (value) => {
 const holidays = ref([])
 const offDays = ref([])
 const current_date = ref(moment().format('YYYY-MM-DD'))
+// Hrvatski: mjeseci / dani u kalendaru; lokal učitam na odgovarajući jezik
+moment.locale('hr')
 const config = ref({
   dateFormat: 'Y-m-d',
   defaultDate: 'today',
   minDate: new Date(),
   static: true,
-  disable: []
+  disable: [],
+  locale: Croatian
 })
 
 const combinedDisable = computed(() => {
@@ -685,7 +690,8 @@ const combinedDisable = computed(() => {
     ...holidays.value,
     (date) => {
       const d = moment(date)
-      const dayName = d.format('dddd').toLowerCase()
+      // Isključeni dani API-a koriste engleske nazive dana (npr. monday)
+      const dayName = d.clone().locale('en').format('dddd').toLowerCase()
       // Only check off days for the current month
       if (offDays.value.includes(dayName)) {
         const currentMonth = moment().month()
@@ -818,6 +824,9 @@ const setFormData = (data) => {
   userPackage.value = []
 
   if (data.status == 'checkout') {
+    store.updateStep('CHECK_OUT')
+  }
+  if (props.bookingType === 'CALENDER_BOOKING' && data.status === 'confirmed') {
     store.updateStep('CHECK_OUT')
   }
   if (data.services !== undefined && data.services.length > 0) {
@@ -963,7 +972,6 @@ const service = ref({ options: [], list: [] })
 
 const slots = ref([])
 
-useOnOffcanvasHide('booking-form', () => setFormData(defaultData()))
 useOnOffcanvasShow('booking-form', () => {
   const initialBranchId = props.bookingData.branch_id || branch_id.value || null
   console.log('BookingForm: offcanvas show', { bookingData: props.bookingData, bookingType: props.bookingType, initialBranchId })
@@ -1311,6 +1319,10 @@ const removeProduct = (id) => {
 const payment_data = ref(null)
 const stripe_payment_data = ref(null)
 const store = useBookingStore()
+useOnOffcanvasHide('booking-form', () => {
+  store.updateStep('MAIN')
+  setFormData(defaultData())
+})
 const SINLGE_STEP = computed(() => store.singleStep)
 var SUB_TOTAL_SERVICE_AMOUNT = computed(
   () => selectedService.value.reduce((total, service) => total + service.service_price, 0) + selectPurchasePackages.value.reduce((total, PurchasePackage) => total + PurchasePackage.package_price, 0) + selectedProduct.value.reduce((total, product) => total + (product.discounted_price ? product.discounted_price : product.product_price) * product.product_qty, 0) + selectedPackage.value.reduce((total, packages) => total + packages.package_price, 0) - (couponRedeem.value || 0) // Subtract coupon discount if it exists

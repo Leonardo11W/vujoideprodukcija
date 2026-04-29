@@ -1,4 +1,4 @@
-<div class="faq-section section-spacing-bottom">
+<div class="faq-section section-spacing-bottom vujo-section vujo-faq-block">
     <div class="container">
         <div class="section-title text-center">
             <span class="decorator-title decorator-font text-primary text-uppercase text-decoration-underline">{{__('frontend.faq')}}</span>

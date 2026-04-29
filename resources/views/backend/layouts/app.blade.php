@@ -174,7 +174,7 @@
             @endif
         </div>
 
-        <div class="conatiner-fluid content-inner pb-0" id="page_layout">
+        <div class="conatiner-fluid content-inner pb-0 admin-page" id="page_layout">
             <!-- Main content block -->
             @yield('content')
             <!-- / Main content block -->

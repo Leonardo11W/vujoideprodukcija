@@ -130,7 +130,7 @@
                             <br>
                             <span class="text-muted">
                                 {{ __('booking.lbl_booking_time') }}:
-                                {{ date('h:i:s', strtotime($data->booking->resource->start_date_time)) }}
+                                {{ date('H:i:s', strtotime($data->booking->resource->start_date_time)) }}
                             </span>
                         </div>
                     </div>

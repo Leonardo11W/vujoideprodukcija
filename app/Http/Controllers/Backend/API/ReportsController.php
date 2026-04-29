@@ -400,7 +400,7 @@ class ReportsController extends Controller
             $bookingDateTime = Carbon::parse($firstBooking->start_date_time);
 
             // Format as "6 May 2025 At 10:00 AM"
-            $formattedDate = $bookingDateTime->format('j F Y') . ' At ' . $bookingDateTime->format('g:i A');
+            $formattedDate = $bookingDateTime->format('j F Y') . ' at ' . $bookingDateTime->format('H:i');
 
             $data[] = [
                 'date_key' => $dateKey, // Store for sorting
@@ -504,7 +504,7 @@ class ReportsController extends Controller
             $orderDate = Carbon::parse($order->created_at);
 
             // Format date as "6, May 2025 At 10:00 AM"
-            $formattedDate = $orderDate->format('j, F Y') . ' At ' . $orderDate->format('g:i A');
+            $formattedDate = $orderDate->format('j, F Y') . ' at ' . $orderDate->format('H:i');
 
             // Calculate total items
             $totalItems = $order->orderItems ? $order->orderItems->sum('qty') : 0;
@@ -651,7 +651,7 @@ class ReportsController extends Controller
             $payoutDate = $earning->payment_date
                 ? Carbon::parse($earning->payment_date)
                 : Carbon::parse($earning->created_at);
-            $formattedPayoutDate = $payoutDate->format('j M Y') . ' At ' . $payoutDate->format('g:i A');
+            $formattedPayoutDate = $payoutDate->format('j M Y') . ' at ' . $payoutDate->format('H:i');
 
             // Get staff since year from user created_at
             $staffSinceYear = $employee->created_at
@@ -784,7 +784,7 @@ class ReportsController extends Controller
             $latestTs = max($latestCommissionTs, $latestTipTs);
 
             $payoutDate = $latestTs ? Carbon::createFromTimestamp($latestTs) : Carbon::now();
-            $formattedPayoutDate = $payoutDate->format('j M Y') . ' At ' . $payoutDate->format('g:i A');
+            $formattedPayoutDate = $payoutDate->format('j M Y') . ' at ' . $payoutDate->format('H:i');
 
             $staffSinceYear = $employee->created_at
                 ? Carbon::parse($employee->created_at)->format('Y')

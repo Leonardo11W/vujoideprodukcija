@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'title' => 'Korisnici',
+    'account_crdential' => 'Podaci za prijavu poslani korisniku.',
+    'user_created' => 'Korisnik uspešno kreiran.',
+    'lbl_old_password' => 'Stara lozinka',
+    'lbl_new_password' => 'Nova lozinka',
+    'lbl_confirm_password' => 'Potvrdi lozinku',
+    'address_store' => 'Adresa korisnika je sačuvana',
+    'user_not_found' => 'Korisnik nije pronađen',
+    'address_list' => 'Lista adresa korisnika',
+    'address_not_found' => 'Adresa nije pronađena',
+    'address_deleted' => 'Adresa obrisana',
+    'address_updated' => 'Adresa ažurirana',
+    'old_password'=>'Unesite staru lozinku',
+    'new_password' =>'Unesite novu lozinku',
+    'confirm_password'=>'Potvrdite novu lozinku',
+    'old_password_required' => 'Stara lozinka je obavezna',
+    'new_password_required' => 'Nova lozinka je obavezna',
+    'confirm_password_required' => 'Potvrda lozinke je obavezna',
+    'password_min_length' => 'Nova lozinka mora imati najmanje 8 znakova',
+    'password_max_length' => 'Lozinka ne može imati više od 12 znakova',
+    'passwords_must_match' => 'Lozinke se moraju podudarati',
+    'new_password_mismatch' => 'Nova lozinka ne može biti ista kao stara lozinka.',
+    'change_password' => 'Promeni lozinku',
+];

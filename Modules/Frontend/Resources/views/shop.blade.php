@@ -5,7 +5,7 @@
 
 @section('content')
     <x-breadcrumb title="{{ __('frontend.shop') }}" />
-    <div class="shop-section section-spacing-inner-pages">
+    <div class="shop-section section-spacing-inner-pages vujo-page-inner vujo-shop-page">
         <div class="container">
             <div class="section-title d-flex flex-wrap justify-content-between align-items-center gap-3">
                 <div class="">

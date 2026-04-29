@@ -148,6 +148,13 @@ function sendNotification($data)
                     break;
 
                 case 'user':
+                    if (
+                        isset($data['notification_group'], $data['notification_type'])
+                        && $data['notification_group'] === 'booking'
+                        && $data['notification_type'] !== 'cancel_booking'
+                    ) {
+                        break;
+                    }
                     if (isset($data['user_id'])) {
                         $user = \App\Models\User::find($data['user_id']);
                         $data['user_type'] = 'user';
@@ -264,7 +271,7 @@ function dateAgo($date, $type2 = '')
     return $diff_time1 . ' on ' . $diff_time;
 }
 
-function customDate($date, $format = 'd-m-Y h:i A')
+function customDate($date, $format = 'd-m-Y H:i')
 {
     if ($date == null || $date == '0000-00-00 00:00:00') {
         return '-';
@@ -277,6 +284,32 @@ function customDate($date, $format = 'd-m-Y h:i A')
     $diff_time = \Carbon\Carbon::createFromTimeStamp(strtotime($newDate))->format($format);
 
     return $diff_time;
+}
+
+/**
+ * Parse admin booking date (dd/mm/yyyy) and time. Prefers 24h (H:i), falls back to legacy 12h.
+ */
+function parseDmyDateTimeString(string $date, string $time): \Carbon\Carbon
+{
+    $date = trim($date);
+    $time = trim($time);
+    $candidates = [];
+    if (preg_match('/\d{1,2}:\d{2}:\d{2}/', $time)) {
+        $candidates['d/m/Y H:i:s'] = $date . ' ' . $time;
+    }
+    $candidates['d/m/Y H:i'] = $date . ' ' . $time;
+    $candidates['d/m/Y G:i'] = $date . ' ' . $time;
+    $candidates['d/m/Y h:i A'] = $date . ' ' . $time;
+    $candidates['d/m/Y g:i A'] = $date . ' ' . $time;
+
+    foreach ($candidates as $format => $datetime) {
+        try {
+            return \Carbon\Carbon::createFromFormat($format, $datetime);
+        } catch (\Exception $e) {
+        }
+    }
+
+    throw new \InvalidArgumentException('Invalid date or time. Use date dd/mm/yyyy and time HH:mm (24h), or legacy 12h with AM/PM.');
 }
 
 function saveDate($date)
@@ -1227,7 +1260,8 @@ function getBookingTaxamount($amount, $couponAmount, $tax_data)
     $total_tax_amount = 0;
     $tax_details = [];
     $tax_amount = 0;
-    $amt = $amount - $couponAmount;
+    $coupon = $couponAmount !== null && $couponAmount !== '' ? (float) $couponAmount : 0;
+    $amt = (float) $amount - $coupon;
     if ($tax_list != null) {
 
         foreach ($tax_list as $tax) {

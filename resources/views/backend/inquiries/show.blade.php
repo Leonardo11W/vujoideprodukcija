@@ -51,14 +51,14 @@
                     <div class="mb-3">
                         <label class="form-label fw-bold">{{ __('inquiry.lbl_created_at') }}</label>
                         <p class="form-control-plaintext">
-                            {{ $inquiry->created_at ? $inquiry->created_at->format('F j, Y g:i A') : 'N/A' }}</p>
+                            {{ $inquiry->created_at ? $inquiry->created_at->format('F j, Y H:i') : 'N/A' }}</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="form-label fw-bold">{{ __('inquiry.lbl_updated_at') }}</label>
                         <p class="form-control-plaintext">
-                            {{ $inquiry->updated_at ? $inquiry->updated_at->format('F j, Y g:i A') : 'N/A' }}</p>
+                            {{ $inquiry->updated_at ? $inquiry->updated_at->format('F j, Y H:i') : 'N/A' }}</p>
                     </div>
                 </div>
             </div>

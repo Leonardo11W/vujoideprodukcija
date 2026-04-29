@@ -383,7 +383,7 @@ class DashboardController extends Controller
             $bookingTime = '';
             if ($booking->start_date_time) {
                 $bookingTime = Carbon::parse($booking->start_date_time)
-                    ->format('h:i A'); 
+                    ->format('H:i');
             }
 
             return [

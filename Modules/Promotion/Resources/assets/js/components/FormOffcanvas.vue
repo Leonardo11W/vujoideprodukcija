@@ -103,6 +103,7 @@ import FormHeader from '@/vue/components/form-elements/FormHeader.vue'
 import FormFooter from '@/vue/components/form-elements/FormFooter.vue'
 import FormElement from '@/helpers/custom-field/FormElement.vue'
 import FlatPickr from 'vue-flatpickr-component'
+import { Croatian } from 'flatpickr/dist/l10n/hr.js'
 
 // props
 const props = defineProps({
@@ -154,7 +155,8 @@ const { getRequest, storeRequest, updateRequest, listingRequest } = useRequest()
 const config = ref({
   dateFormat: 'Y-m-d',
   static: true,
-  minDate: new Date()
+  minDate: new Date(),
+  locale: Croatian
 })
 
 const singleSelectOption = ref({

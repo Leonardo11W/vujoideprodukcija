@@ -51,7 +51,7 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-6">
                                 <h6 class="mb-1">{{__("frontend.date_and_time")}}</h6>
-                                <span class="font-size-14">{{ $order->created_at ? $order->created_at->format('d/m/Y \\a\\t h:i A') : '-' }}</span>
+                                <span class="font-size-14">{{ $order->created_at ? $order->created_at->format('d/m/Y \\a\\t H:i') : '-' }}</span>
                             </div>
                             <div class="col-lg-4 col-md-6 mt-3 mt-md-0">
                                 <h6 class="mb-1">{{__("frontend.payment")}}</h6>
@@ -187,7 +187,7 @@
                         </p>
                         <div><span>Contact Number:</span> <a href="#" class="heading-color btn btn-link border-0 ms-lg-3 ms-2 font-size-16">{{ $address->contact_number ?? $order->user->mobile ?? '' }}</a></div>
                         <!-- @if(isset($booking) && $booking->start_date_time)
-                        <div><span>Checkout Time:</span> <span class="heading-color fw-medium">{{ \Carbon\Carbon::parse($booking->start_date_time)->format('d/m/Y h:i A') }}</span></div>
+                        <div><span>Checkout Time:</span> <span class="heading-color fw-medium">{{ \Carbon\Carbon::parse($booking->start_date_time)->format('d/m/Y H:i') }}</span></div>
                         @endif -->
                     </div>
                 </div>
